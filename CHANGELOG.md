@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.15.2] - 2026-05-22
+### Fixed
+- **Shadowing**: Fix Shadowing playback audio quality.
+
 ## [1.15.1] - 2026-05-09
 ### Fixed
 - **UI/UX**: Improved vertical spacing and layout of Markdown content (Help pages and session feedback), specifically increasing margins for `H2`, `H3`, lists, and horizontal rules (`hr`).
