@@ -10,6 +10,7 @@ import GeminiLive from './components/GeminiLive';
 import CompositionTrainer from './components/CompositionTrainer';
 import GoTanakaKei from './components/GoTanakaKei';
 import FreeTalk from './components/FreeTalk';
+import Teacher from './components/Teacher';
 import PhotoDescription from './components/PhotoDescription';
 import PronunciationTrainer from './components/PronunciationTrainer';
 import ReactMarkdown from 'react-markdown';
@@ -17,12 +18,12 @@ import readmeText from '../README.md?raw';
 import packageJson from '../package.json';
 import { lockVolumeStream } from './utils/audioLocker';
 
-type View = 'dashboard' | 'settings' | 'quiz' | 'shadowing' | 'coaching' | 'gemini_live' | 'composition' | 'gotanakakei' | 'freetalk' | 'photodesc' | 'tuning' | 'help';
+type View = 'dashboard' | 'settings' | 'quiz' | 'shadowing' | 'coaching' | 'gemini_live' | 'composition' | 'gotanakakei' | 'freetalk' | 'teacher' | 'photodesc' | 'tuning' | 'help';
 
 function App() {
   const getViewFromHash = (): View => {
     const hash = window.location.hash.replace('#', '') as View;
-    const validViews: View[] = ['dashboard', 'settings', 'quiz', 'shadowing', 'coaching', 'gemini_live', 'composition', 'gotanakakei', 'freetalk', 'photodesc', 'tuning', 'help'];
+    const validViews: View[] = ['dashboard', 'settings', 'quiz', 'shadowing', 'coaching', 'gemini_live', 'composition', 'gotanakakei', 'freetalk', 'teacher', 'photodesc', 'tuning', 'help'];
     if (hash === 'monologue' as any) return 'gemini_live'; // alias for backward comp / aesthetic
     if (hash === 'reflex' as any) return 'composition'; // alias
     return validViews.includes(hash) ? hash : 'settings';
@@ -131,6 +132,13 @@ function App() {
           >
             <Coffee size={18} /> Dialogue
           </button>
+          <button
+            className={`btn ${view === 'teacher' ? 'btn-primary' : 'btn-secondary'}`}
+            onClick={() => setView('teacher')}
+            disabled={!geminiApiKey}
+          >
+            <GraduationCap size={18} /> Teacher
+          </button>
           <button 
             className={`btn ${view === 'tuning' ? 'btn-primary' : 'btn-secondary'}`} 
             onClick={() => setView('tuning')}
@@ -222,6 +230,16 @@ function App() {
         
         {view === 'freetalk' && geminiApiKey && (
           <FreeTalk geminiApiKey={geminiApiKey} geminiModel={geminiModel} geminiVoice={geminiVoice} />
+        )}
+
+        {view === 'teacher' && geminiApiKey && (
+          <Teacher
+            googleClientId={googleClientId}
+            geminiApiKey={geminiApiKey}
+            geminiModel={geminiModel}
+            geminiVoice={geminiVoice}
+            docId={docId}
+          />
         )}
 
         {view === 'photodesc' && geminiApiKey && (
