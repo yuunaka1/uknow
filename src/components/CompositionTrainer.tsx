@@ -210,16 +210,20 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
             setAppState('listening');
             addLog(`Training session started at level ${trainingLevel}. Listening...`, "system");
             
-            await recorderRef.current?.start((base64pcm) => {
-               if (wsRef.current?.readyState === WebSocket.OPEN) {
-                 const audioMessage = {
-                   realtimeInput: {
-                     audio: { mimeType: "audio/pcm;rate=16000", data: base64pcm }
-                   }
-                 };
-                 wsRef.current.send(JSON.stringify(audioMessage));
-               }
-            });
+            // Delay start to avoid 1008 race condition
+            setTimeout(async () => {
+              if (wsRef.current?.readyState !== WebSocket.OPEN) return;
+              await recorderRef.current?.start((base64pcm) => {
+                 if (wsRef.current?.readyState === WebSocket.OPEN) {
+                   const audioMessage = {
+                     realtimeInput: {
+                       audio: { mimeType: "audio/pcm;rate=16000", data: base64pcm }
+                     }
+                   };
+                   wsRef.current.send(JSON.stringify(audioMessage));
+                 }
+              });
+            }, 500);
           }
 
           if (payload.serverContent) {
