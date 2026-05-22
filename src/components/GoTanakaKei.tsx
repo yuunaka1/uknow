@@ -157,6 +157,7 @@ export default function GoTanakaKei({ geminiApiKey, geminiModel, geminiVoice }: 
                 onClick={(e) => handleDeleteCustom(e, topic.id)}
                 style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', background: 'none', border: 'none', color: '#ff3333', cursor: 'pointer', opacity: 0.5 }}
                 title="Delete Custom Topic"
+                aria-label="Delete Custom Topic"
               >
                 <Trash2 size={16} />
               </button>
