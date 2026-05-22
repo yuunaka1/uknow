@@ -203,6 +203,11 @@ export default function ShadowingPlayer({ geminiApiKey, geminiModel }: { geminiA
     setPlaybackRate(rate);
     if (audioRef.current) {
       audioRef.current.playbackRate = rate;
+      audioRef.current.preservesPitch = false;
+      // @ts-expect-error Vendor prefix for Firefox
+      audioRef.current.mozPreservesPitch = false;
+      // @ts-expect-error Vendor prefix for Safari
+      audioRef.current.webkitPreservesPitch = false;
     }
   };
 
