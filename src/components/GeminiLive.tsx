@@ -155,17 +155,21 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
             setAppState('listening');
             addLog("Setup complete. Starting microphone...", "system");
             
-            // Start recording and streaming!
-            await recorderRef.current?.start((base64pcm) => {
-               if (wsRef.current?.readyState === WebSocket.OPEN) {
-                 const audioMessage = {
-                   realtimeInput: {
-                     audio: { mimeType: "audio/pcm;rate=16000", data: base64pcm }
-                   }
-                 };
-                 wsRef.current.send(JSON.stringify(audioMessage));
-               }
-            });
+            // Delay start to avoid 1008 race condition
+            setTimeout(async () => {
+              if (wsRef.current?.readyState !== WebSocket.OPEN) return;
+              // Start recording and streaming!
+              await recorderRef.current?.start((base64pcm) => {
+                 if (wsRef.current?.readyState === WebSocket.OPEN) {
+                   const audioMessage = {
+                     realtimeInput: {
+                       audio: { mimeType: "audio/pcm;rate=16000", data: base64pcm }
+                     }
+                   };
+                   wsRef.current.send(JSON.stringify(audioMessage));
+                 }
+              });
+            }, 500);
           }
 
           // Handle Server Content (Responses)
