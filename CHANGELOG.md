@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.0] - 2026-05-23
+### Added
+- **AI Teacher**: Added new interactive AI Teacher feature that reads your Flashcard Google Docs notes.
+  - Supports selectable lesson durations (10, 20, 30 minutes).
+  - Uses the Gemini Live API for real-time natural voice conversations.
+  - Automatically evaluates the student's weaknesses at the end of the lesson and saves the profile to personalize future lessons.
+
 ## [1.15.2] - 2026-05-22
 ### Fixed
 - **Shadowing**: Fix Shadowing playback audio quality.
