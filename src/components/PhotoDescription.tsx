@@ -256,7 +256,7 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
                 <button className="btn btn-primary" onClick={startPrep} disabled={isGeneratingImage || !currentPhoto.url} style={{ padding: '0.75rem 2rem' }}>
                   <Play size={18} /> START PRACTICE
                 </button>
-                <button className="btn btn-secondary" onClick={generateNewPhoto} disabled={isGeneratingImage} title="Generate Another Photo">
+                <button className="btn btn-secondary" onClick={generateNewPhoto} disabled={isGeneratingImage} title="Generate Another Photo" aria-label="Generate Another Photo">
                   <RefreshCcw size={18} className={isGeneratingImage ? "animate-spin" : ""} />
                 </button>
               </>

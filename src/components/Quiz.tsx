@@ -101,6 +101,7 @@ export default function Quiz({ onComplete }: { onComplete: () => void }) {
               style={{ padding: '0.5rem', borderRadius: '50%', background: 'transparent', border: 'none', cursor: 'pointer' }}
               onClick={() => speak(currentCard.vocab.term)}
               title="Listen pronunciation"
+              aria-label="Listen pronunciation"
             >
               <Volume2 size={24} color="var(--brand-primary)" />
             </button>
@@ -121,6 +122,7 @@ export default function Quiz({ onComplete }: { onComplete: () => void }) {
                        style={{ padding: '0.4rem', borderRadius: '50%', background: 'transparent', border: 'none', cursor: 'pointer' }}
                        onClick={() => speak(currentCard.vocab.exampleSentence)}
                        title="Listen example sentence"
+                       aria-label="Listen example sentence"
                      >
                        <Volume2 size={18} color="var(--text-secondary)" />
                      </button>
