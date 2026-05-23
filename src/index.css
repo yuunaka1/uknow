@@ -1,31 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap');
 
-:root {
-  /* Hacker Theme Variables */
-  --bg-primary: #0a0a00;
-  --bg-secondary: rgba(0, 50, 0, 0.4);
-  --bg-tertiary: #000000;
+:root, body.theme-light {
+  /* Light Theme Variables (Modern & Refined) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --bg-tertiary: #e5e7eb;
   
-  --text-primary: #00ff41;
-  --text-secondary: #00aa2b;
-  --text-tertiary: #008800;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-tertiary: #9ca3af;
   
-  --brand-primary: #00ff41;
-  --brand-hover: rgba(0, 255, 65, 0.2);
-  --brand-active: #00ff41;
-  --brand-light: rgba(0, 255, 65, 0.1);
+  --brand-primary: #3b82f6;
+  --brand-hover: rgba(59, 130, 246, 0.1);
+  --brand-active: #2563eb;
+  --brand-light: #eff6ff;
 
-  --success: #00ff41;
-  --success-bg: rgba(0, 255, 65, 0.1);
-  --warning: #ffed00;
-  --error: #ff3333;
-  --error-bg: rgba(255, 51, 51, 0.1);
+  --success: #10b981;
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --error-bg: rgba(239, 68, 68, 0.1);
   
-  --border-color: #005000;
-  --input-bg: #000000;
+  --border-color: #e5e7eb;
+  --input-bg: #ffffff;
   
   --transition-fast: 0.15s ease-in-out;
   --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.theme-dark {
+  /* Dark Theme Variables (Modern & Refined) */
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --bg-tertiary: #374151;
+
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+
+  --brand-primary: #60a5fa;
+  --brand-hover: rgba(96, 165, 250, 0.1);
+  --brand-active: #3b82f6;
+  --brand-light: rgba(96, 165, 250, 0.05);
+
+  --success: #34d399;
+  --success-bg: rgba(52, 211, 153, 0.1);
+  --warning: #fbbf24;
+  --error: #f87171;
+  --error-bg: rgba(248, 113, 113, 0.1);
+
+  --border-color: #374151;
+  --input-bg: #1f2937;
 }
 
 * {
@@ -35,14 +60,16 @@
 }
 
 body {
-  font-family: 'Fira Code', 'Consolas', monospace;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
 #root {
@@ -51,12 +78,12 @@ body {
   flex-direction: column;
 }
 
-/* Hacker Panel */
+/* Panels */
 .glass-panel {
-  background: var(--bg-secondary);
-  border: 1px dashed var(--border-color);
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 255, 65, 0.05);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
 /* Typography Utilities */
@@ -68,7 +95,7 @@ h1, h2, h3, h4, h5, h6 {
 .markdown-body h2 {
   margin-top: 2.5rem;
   margin-bottom: 1rem;
-  border-bottom: 1px dashed var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 0.5rem;
 }
 
@@ -90,7 +117,7 @@ h1, h2, h3, h4, h5, h6 {
 .markdown-body hr {
   margin: 2.5rem 0;
   border: 0;
-  border-bottom: 1px dashed var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .text-gradient {
@@ -112,14 +139,13 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   gap: 0.5rem;
   padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.5rem, 3vw, 1.5rem);
-  font-size: clamp(0.8rem, 2.5vw, 1rem);
-  font-weight: 600;
-  border-radius: 4px;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  font-weight: 500;
+  border-radius: 8px;
   cursor: pointer;
   transition: all var(--transition-fast);
   font-family: inherit;
   outline: none;
-  text-transform: uppercase;
 }
 
 .btn:focus-visible {
@@ -145,8 +171,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--brand-primary);
-  color: #000;
+  background-color: var(--brand-active);
+  color: #fff;
 }
 
 .btn-secondary {
@@ -156,8 +182,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: var(--brand-light);
-  border-color: var(--brand-primary);
+  background-color: var(--bg-secondary);
+  border-color: var(--text-tertiary);
 }
 
 /* Forms */
@@ -187,7 +213,7 @@ h1, h2, h3, h4, h5, h6 {
 .form-input:focus {
   outline: none;
   border-color: var(--brand-primary);
-  box-shadow: inset 0 0 5px rgba(0, 255, 65, 0.2);
+  box-shadow: 0 0 0 2px var(--brand-light);
 }
 
 .form-input::placeholder {
@@ -220,9 +246,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 10, 0, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background-color: var(--bg-primary);
   z-index: 3000;
   display: flex;
   flex-direction: column;
@@ -236,7 +260,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   margin-bottom: 2rem;
   padding: 0.5rem 1rem;
-  border-bottom: 1px dashed var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 1rem;
 }
 
@@ -264,7 +288,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: flex-start;
   padding: 1rem;
   font-size: 1.1rem;
-  border: 1px dashed var(--border-color);
+  border: 1px solid var(--border-color);
 }
 
 .menu-btn:hover:not(:disabled) {

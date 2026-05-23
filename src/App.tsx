@@ -65,6 +65,17 @@ function App() {
   const [docId, setDocId] = useLocalStorage('uknow_doc_id', '');
   const [geminiModel, setGeminiModel] = useLocalStorage('uknow_gemini_model', 'gemini-3.1-flash-lite-preview');
   const [geminiVoice, setGeminiVoice] = useLocalStorage('uknow_gemini_voice', 'Aoede');
+  const [theme, setTheme] = useLocalStorage('uknow_theme', 'light');
+
+  React.useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.add('theme-dark');
+      document.body.classList.remove('theme-light');
+    } else {
+      document.body.classList.add('theme-light');
+      document.body.classList.remove('theme-dark');
+    }
+  }, [theme]);
   
   const isFlashcardConfigured = googleClientId && geminiApiKey && docId;
   const isShadowingConfigured = !!geminiApiKey;
@@ -218,6 +229,8 @@ function App() {
             setGeminiVoice={setGeminiVoice}
             docId={docId}
             setDocId={setDocId}
+            theme={theme}
+            setTheme={setTheme}
           />
         )}
         

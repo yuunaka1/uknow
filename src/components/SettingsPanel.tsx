@@ -9,6 +9,8 @@ interface SettingsPanelProps {
   setGeminiVoice: (val: string) => void;
   docId: string;
   setDocId: (val: string) => void;
+  theme: string;
+  setTheme: (val: string) => void;
 }
 
 export default function SettingsPanel({
@@ -16,7 +18,8 @@ export default function SettingsPanel({
   geminiApiKey, setGeminiApiKey,
   geminiModel, setGeminiModel,
   geminiVoice, setGeminiVoice,
-  docId, setDocId
+  docId, setDocId,
+  theme, setTheme
 }: SettingsPanelProps) {
   
   return (
@@ -26,6 +29,25 @@ export default function SettingsPanel({
         Configure your private APIs to enable uKnow. Your keys are stored locally in your browser.
       </p>
       
+
+      <div className="form-group">
+        <label className="form-label" htmlFor="theme">
+          Theme
+        </label>
+        <select
+          id="theme"
+          className="form-input"
+          value={theme}
+          onChange={(e) => setTheme(e.target.value)}
+          style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)' }}
+        >
+          <option value="light">Light (Default)</option>
+          <option value="dark">Dark</option>
+        </select>
+        <p style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', marginTop: '0.5rem' }}>
+          Select your preferred application theme.
+        </p>
+      </div>
 
       <div className="form-group">
         <label className="form-label" htmlFor="geminiApiKey">
