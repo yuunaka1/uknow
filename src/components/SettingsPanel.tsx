@@ -37,7 +37,7 @@ export default function SettingsPanel({
     try {
       const { GoogleGenerativeAI } = await import('@google/generative-ai');
       const genAI = new GoogleGenerativeAI(geminiApiKey);
-      const synthesisModel = geminiModel.startsWith('gemini-2.5') || geminiModel.startsWith('gemini-3') ? geminiModel : 'gemini-2.5-flash';
+      const synthesisModel = 'gemini-2.5-flash';
       const model = genAI.getGenerativeModel({ model: synthesisModel });
 
       const result = await model.generateContent({
