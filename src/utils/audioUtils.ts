@@ -4,7 +4,7 @@ export class AudioStreamPlayer {
   nextStartTime: number;
 
   constructor() {
-    this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
     this.nextStartTime = this.audioContext.currentTime;
   }
 
@@ -42,7 +42,7 @@ export class AudioStreamPlayer {
 
   stop() {
     this.audioContext.close();
-    this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
     this.nextStartTime = this.audioContext.currentTime;
   }
 }
@@ -57,7 +57,7 @@ export class AudioRecorder {
 
   async start(onPcmChunk: (base64: string) => void) {
     this.stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
+    this.audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
     this.mediaStreamSrc = this.audioContext.createMediaStreamSource(this.stream);
     
     // ScriptProcessor is deprecated but works uniformly across browsers for raw PCM capture

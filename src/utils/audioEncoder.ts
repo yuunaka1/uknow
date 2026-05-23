@@ -2,7 +2,6 @@
 
 export async function sliceAudioFileToWav(file: File, startTime: number, endTime: number): Promise<Blob> {
   const arrayBuffer = await file.arrayBuffer();
-  // @ts-ignore
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   const audioContext = new AudioContext();
   const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
@@ -17,7 +16,6 @@ export async function sliceAudioFileToWav(file: File, startTime: number, endTime
     throw new Error("Invalid time range for audio slicing");
   }
 
-  // @ts-ignore
   const OfflineAudioContext = window.OfflineAudioContext || window.webkitOfflineAudioContext;
   const offlineContext = new OfflineAudioContext(
     audioBuffer.numberOfChannels,
