@@ -102,18 +102,18 @@ export async function evaluateShadowingWithGemini(apiKey: string, sourceBlob: Bl
   const recordedBase64 = await blobToBase64(recordedBlob);
 
   const prompt = `
-以下の2つの音声データを比較し、2つ目の音声（英語学習者のシャドーイング録音）を評価してください。
+以下の2つの音声データを比較し、2つ目の音声（英語学習者のシャドーイング録音）を日本語で評価してください。
 1番目の音声: ネイティブのお手本音声
 2番目の音声: 学習者の録音音声
 
 以下の形式で評価を出力してください。
 SCORE: [100点満点中の点数]/100
 
-[IMPROVEMENTS]
+[改善点 (IMPROVEMENTS)]
 - 優先的に直すべき発音のミス（上手く発音できていなかった単語）を指摘してください。
 - リズム感やイントネーションについても、違和感や直すべき部分があれば具体的に指摘してください。
 
-TRANSCRIPT: [1番目の音声の文字起こし]
+トランスクリプト (TRANSCRIPT): [1番目の音声の文字起こしを英語で]
 `;
 
   try {

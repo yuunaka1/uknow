@@ -75,7 +75,7 @@ export default function PronunciationTrainer({ geminiApiKey, geminiModel, gemini
 
   const startSession = async () => {
     if (!geminiApiKey) {
-      addLog("API Key missing.", "system");
+      addLog("APIキーが見つかりません。", "system");
       return;
     }
 
@@ -115,7 +115,7 @@ Workflow:
 Keep your feedback very concise and strictly focused on pronunciation. Do not give long explanations. Guide the user step by step.`;
 
       ws.onopen = () => {
-        addLog(`Connected to Multimodal Live API (${modelOverride})`, "system");
+        addLog(`マルチモーダル Live API に接続しました (${modelOverride})`, "system");
         const setupMsg = {
           setup: {
             model: modelOverride,
@@ -150,17 +150,17 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
       ws.onerror = (e) => {
         console.error("WebSocket Error", e);
         setAppState('error');
-        addLog("WebSocket Error occurred.", "system");
+        addLog("WebSocketエラーが発生しました。", "system");
       };
 
       ws.onmessage = async (event) => {
-        let msgStr = event.data instanceof Blob ? await event.data.text() : event.data;
+        const msgStr = event.data instanceof Blob ? await event.data.text() : event.data;
         try {
           const payload = JSON.parse(msgStr);
 
           if (payload.setupComplete) {
             setAppState('listening');
-            addLog(`Setup complete. Theme: ${themeLabel}. Say "Hello" or "Start" to begin!`, "system");
+            addLog(`セットアップ完了。テーマ: ${themeLabel}。「こんにちは」や「スタート」と話しかけて始めてください！`, "system");
             
             setTimeout(async () => {
               if (wsRef.current?.readyState !== WebSocket.OPEN) return;
@@ -297,12 +297,12 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
     <div className="animate-fade-in glass-panel" style={{ padding: 'clamp(1rem, 2vw, 1.5rem)', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 140px)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
         <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)', margin: 0, fontSize: '1.25rem' }}>
-          <Volume2 size={20} /> TUNING
+          <Volume2 size={20} /> 発音矯正
         </h2>
 
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 0.75rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Theme:</span>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>テーマ:</span>
             <select 
               value={selectedTheme}
               onChange={(e) => setSelectedTheme(e.target.value)}
@@ -320,14 +320,14 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
               onClick={startSession}
               style={{ ...btnBaseStyles, color: 'var(--brand-primary)', backgroundColor: 'var(--brand-light)' }}
             >
-              <Mic size={16} /> START
+              <Mic size={16} /> 開始
             </button>
           ) : (
             <button 
               onClick={stopAndGenerateFeedback}
               style={{ ...btnBaseStyles, color: 'var(--error)', backgroundColor: 'var(--error-bg)' }}
             >
-              <LogOut size={16} /> END
+              <LogOut size={16} /> 終了
             </button>
           )}
 
@@ -364,14 +364,14 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
       {isGeneratingFeedback && (
         <div style={{ padding: '1.5rem', marginBottom: '1rem', backgroundColor: 'var(--brand-light)', border: '1px solid var(--brand-primary)', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)' }}>
           <Loader className="animate-spin" size={20} />
-          <span>Generating session feedback...</span>
+          <span>セッションのフィードバックを生成中...</span>
         </div>
       )}
 
       {feedback && !isGeneratingFeedback && (
         <div style={{ padding: '1.5rem', marginBottom: '1rem', backgroundColor: 'var(--success-bg)', border: '1px solid var(--success)', borderRadius: '8px', flexShrink: 0, maxHeight: '40vh', overflowY: 'auto' }}>
            <h3 style={{ margin: '0 0 1rem 0', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-             <CheckCircle size={20} /> Session Feedback
+             <CheckCircle size={20} /> セッションフィードバック
            </h3>
            <div className="markdown-body" style={{ fontSize: '0.9rem', lineHeight: 1.6, color: 'var(--text-primary)' }}>
              <ReactMarkdown>{feedback}</ReactMarkdown>
@@ -397,7 +397,7 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
         
         <div style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
           {logs.length === 0 ? (
-            <div style={{ color: 'var(--text-tertiary)', fontStyle: 'italic' }}>&gt; Ready to establish WebSocket stream...</div>
+            <div style={{ color: 'var(--text-tertiary)', fontStyle: 'italic' }}>&gt; WebSocketストリームを確立する準備ができました...</div>
           ) : (
           logs.map((log) => (
             <div 

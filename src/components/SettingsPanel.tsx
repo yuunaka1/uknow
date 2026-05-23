@@ -24,15 +24,15 @@ export default function SettingsPanel({
   
   return (
     <div className="animate-fade-in">
-      <h2 style={{ marginBottom: '1.5rem' }}>Settings & API Configuration</h2>
+      <h2 style={{ marginBottom: '1.5rem' }}>設定とAPI構成</h2>
       <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
-        Configure your private APIs to enable uKnow. Your keys are stored locally in your browser.
+        uKnowを有効にするには、プライベートAPIを設定してください。キーはブラウザにローカル保存されます。
       </p>
       
 
       <div className="form-group">
         <label className="form-label" htmlFor="theme">
-          Theme
+          テーマ
         </label>
         <select
           id="theme"
@@ -41,17 +41,17 @@ export default function SettingsPanel({
           onChange={(e) => setTheme(e.target.value)}
           style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)' }}
         >
-          <option value="light">Light (Default)</option>
-          <option value="dark">Dark</option>
+          <option value="light">ライト (デフォルト)</option>
+          <option value="dark">ダーク</option>
         </select>
         <p style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', marginTop: '0.5rem' }}>
-          Select your preferred application theme.
+          お好みのアプリケーションテーマを選択してください。
         </p>
       </div>
 
       <div className="form-group">
         <label className="form-label" htmlFor="geminiApiKey">
-          Gemini API Key
+          Gemini APIキー
         </label>
         <input 
           id="geminiApiKey"
@@ -62,13 +62,13 @@ export default function SettingsPanel({
           onChange={(e) => setGeminiApiKey(e.target.value)}
         />
         <p style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', marginTop: '0.5rem' }}>
-          Get this from Google AI Studio.
+          Google AI Studioから取得してください。
         </p>
       </div>
 
       <div className="form-group">
         <label className="form-label" htmlFor="geminiModel">
-          Gemini Model
+          Gemini モデル
         </label>
         <select 
           id="geminiModel"
@@ -77,20 +77,20 @@ export default function SettingsPanel({
           onChange={(e) => setGeminiModel(e.target.value)}
           style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)' }}
         >
-          <option value="gemini-3.1-flash-lite-preview">gemini-3.1-flash-lite-preview (Fast / Default)</option>
-          <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Premium)</option>
+          <option value="gemini-3.1-flash-lite-preview">gemini-3.1-flash-lite-preview (高速 / デフォルト)</option>
+          <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (プレミアム)</option>
           <option value="gemini-3-flash-preview">gemini-3-flash-preview</option>
           <option value="gemini-2.5-flash">gemini-2.5-flash</option>
           <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite</option>
         </select>
         <p style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', marginTop: '0.5rem' }}>
-          Select the Gemini model you want to use for the AI features.
+          AI機能に使用するGeminiモデルを選択してください。
         </p>
       </div>
 
       <div className="form-group">
         <label className="form-label" htmlFor="geminiVoice">
-          Gemini Voice
+          Gemini 音声
         </label>
         <select 
           id="geminiVoice"
@@ -110,53 +110,53 @@ export default function SettingsPanel({
           <option value="Zephyr">Zephyr</option>
         </select>
         <p style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', marginTop: '0.5rem' }}>
-          Select the voice used in Gemini Live modes (Monologue, Reflex, GoTanakaKei).
+          Gemini Liveモード (独り言スピーチ、瞬間英作文、田中渓メソッド) で使用する音声を選択してください。
         </p>
       </div>
 
       <div className="form-group">
         <label className="form-label" htmlFor="docId">
-          Google Docs Document ID
+          Google Docs ドキュメントID
         </label>
         <input 
           id="docId"
           className="form-input" 
           type="text" 
-          placeholder="e.g. 1BxiMvs0XRY..."
+          placeholder="例: 1BxiMvs0XRY..."
           value={docId}
           onChange={(e) => setDocId(e.target.value)}
         />
         <p style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', marginTop: '0.5rem' }}>
-          The ID component from your Google Docs URL: https://docs.google.com/document/d/&lt;b&gt;[DOC_ID]&lt;/b&gt;/edit
+          Google DocsのURLのID部分です: https://docs.google.com/document/d/&lt;b&gt;[DOC_ID]&lt;/b&gt;/edit
         </p>
       </div>
 
       <div className="form-group">
         <label className="form-label" htmlFor="googleClientId">
-          Google Client ID (OAuth 2.0)
+          Google クライアントID (OAuth 2.0)
         </label>
         <input 
           id="googleClientId"
           className="form-input" 
           type="text" 
-          placeholder="e.g. 123456789-abc.apps.googleusercontent.com"
+          placeholder="例: 123456789-abc.apps.googleusercontent.com"
           value={googleClientId}
           onChange={(e) => setGoogleClientId(e.target.value)}
         />
         <p style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', marginTop: '0.5rem' }}>
-          Required to read your private Google Docs securely.
+          プライベートなGoogle Docsを安全に読み取るために必要です。
         </p>
       </div>
       
       {geminiApiKey && !googleClientId && (
         <div style={{ padding: '1rem', backgroundColor: 'var(--success-bg)', color: 'var(--success)', borderRadius: '4px', marginTop: '2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', border: '1px dashed var(--success)' }}>
-          <strong>Shadowing Ready!</strong> You can now use the Shadowing feature.
+          <strong>シャドーイングの準備完了！</strong> シャドーイング機能が使えるようになりました。
         </div>
       )}
       
       {googleClientId && geminiApiKey && docId && (
         <div style={{ padding: '1rem', backgroundColor: 'var(--success-bg)', color: 'var(--success)', borderRadius: '4px', marginTop: '2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', border: '1px dashed var(--success)' }}>
-          <strong>All Systems Ready!</strong> You can now use both Flashcards and Shadowing.
+          <strong>すべての準備完了！</strong> フラッシュカードとシャドーイングの両方が使えるようになりました。
         </div>
       )}
     </div>

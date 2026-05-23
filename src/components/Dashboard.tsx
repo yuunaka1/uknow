@@ -35,24 +35,24 @@ export default function Dashboard({ googleClientId, geminiApiKey, geminiModel, d
         return;
     }
     setSyncing(true);
-    setSyncMessage("Fetching document text...");
+    setSyncMessage("ドキュメントのテキストを取得中...");
     try {
       const text = await fetchGoogleDocText(docId, token);
-      if (!text) throw new Error("Document is empty.");
+      if (!text) throw new Error("ドキュメントが空です。");
       
-      setSyncMessage(`Parsing vocabulary with ${geminiModel}...`);
+      setSyncMessage(`${geminiModel} で語彙を解析中...`);
       const items = await parseVocabularyWithGemini(geminiApiKey, text, geminiModel);
       
       if (items.length > 0) {
         const addedCount = await addCards(items);
-        setSyncMessage(`Successfully parsed ${items.length} items. ${addedCount} new cards added.`);
+        setSyncMessage(`正常に ${items.length} 件のアイテムを解析しました。 ${addedCount} 枚の新しいカードが追加されました。`);
         await loadDueCards();
       } else {
-        setSyncMessage("No vocabulary found in the document.");
+        setSyncMessage("ドキュメント内に語彙が見つかりませんでした。");
       }
     } catch (err: any) {
       console.error(err);
-      setSyncMessage(`Error: ${err.message}`);
+      setSyncMessage(`エラー: ${err.message}`);
     } finally {
       setSyncing(false);
       setTimeout(() => setSyncMessage(null), 10000);
@@ -62,7 +62,7 @@ export default function Dashboard({ googleClientId, geminiApiKey, geminiModel, d
   return (
     <div className="animate-fade-in">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-        <h2>Flashcards</h2>
+        <h2>フラッシュカード</h2>
         <div>
           {!token ? (
             <button 
@@ -70,13 +70,13 @@ export default function Dashboard({ googleClientId, geminiApiKey, geminiModel, d
               onClick={login} 
               disabled={!isReady}
             >
-              Sign in with Google
+              Googleでログイン
             </button>
           ) : (
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-              <span style={{ fontSize: '0.875rem', color: 'var(--success)' }}>Connected</span>
+              <span style={{ fontSize: '0.875rem', color: 'var(--success)' }}>接続済み</span>
               <button className="btn btn-secondary" onClick={logout} style={{ padding: '0.4rem 0.8rem', fontSize: '0.875rem' }}>
-                Disconnect
+                切断
               </button>
             </div>
           )}
@@ -85,10 +85,10 @@ export default function Dashboard({ googleClientId, geminiApiKey, geminiModel, d
 
       <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <RefreshCw size={20} className={syncing ? 'animate-pulse' : ''} /> Sync Vocabulary
+          <RefreshCw size={20} className={syncing ? 'animate-pulse' : ''} /> 語彙の同期
         </h3>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-          Import the latest notes from your Google Docs and convert them into flashcards using Gemini.
+          Google Docsから最新のノートをインポートし、Geminiを使ってフラッシュカードに変換します。
         </p>
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -97,10 +97,10 @@ export default function Dashboard({ googleClientId, geminiApiKey, geminiModel, d
               disabled={syncing}
               onClick={handleSync}
             >
-              {syncing ? <><Loader2 className="animate-pulse" size={18}/> Syncing...</> : 'Launch AI Sync'}
+              {syncing ? <><Loader2 className="animate-pulse" size={18}/> 同期中...</> : 'AI同期を開始'}
             </button>
             {syncMessage && (
-                <span style={{ fontSize: '0.875rem', color: syncMessage.includes('Error') ? 'var(--error)' : 'var(--text-secondary)' }}>
+                <span style={{ fontSize: '0.875rem', color: syncMessage.includes('エラー') ? 'var(--error)' : 'var(--text-secondary)' }}>
                     {syncMessage}
                 </span>
             )}
@@ -109,19 +109,19 @@ export default function Dashboard({ googleClientId, geminiApiKey, geminiModel, d
 
       <div className="glass-panel" style={{ padding: '1.5rem' }}>
         <h3 style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Play size={20} /> Today's Review
+          <Play size={20} /> 今日の復習
         </h3>
         <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>
           {dueCards.length > 0 
-            ? `You have ${dueCards.length} cards due for review today.`
-            : "You have no cards to review yet. Try syncing your vocabulary first."}
+            ? `今日は ${dueCards.length} 枚のカードの復習が必要です。`
+            : "復習するカードはまだありません。まずは語彙の同期を試してください。"}
         </p>
         <button 
            className="btn btn-primary" 
            disabled={dueCards.length === 0}
            onClick={onStartQuiz}
         >
-          Start Quiz Session
+          クイズセッションを開始
         </button>
       </div>
     </div>

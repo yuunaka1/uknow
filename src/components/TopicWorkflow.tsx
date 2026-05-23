@@ -151,7 +151,7 @@ Please ask me conversational questions about this topic, one at a time, and let 
               className="btn btn-primary"
               style={{ width: '100%', padding: '1rem', display: 'flex', justifyContent: 'center', marginTop: '1rem' }}
             >
-              {isGenerating ? 'GENERATING...' : <><Wand2 size={18}/> メモから「英語スクリプト」を自動生成する <ChevronRight size={18}/></>}
+              {isGenerating ? '生成中...' : <><Wand2 size={18}/> メモから「英語スクリプト」を自動生成する <ChevronRight size={18}/></>}
             </button>
           </div>
         )}
@@ -227,7 +227,7 @@ Please ask me conversational questions about this topic, one at a time, and let 
                 style={{ width: '100%', padding: '1rem', marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}
                 disabled={isGenerating}
               >
-                {isGenerating ? "GENERATING FEEDBACK..." : <><Mic size={18} /> スクリプトを見ながら 実践会話練習をはじめる</>}
+                {isGenerating ? "フィードバックを生成中..." : <><Mic size={18} /> スクリプトを見ながら 実践会話練習をはじめる</>}
               </button>
             )}
 

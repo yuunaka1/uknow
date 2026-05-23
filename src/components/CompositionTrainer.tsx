@@ -98,7 +98,7 @@ export default function CompositionTrainer({ geminiApiKey, geminiModel, geminiVo
 
   const startSession = async () => {
     if (!geminiApiKey) {
-      addLog("API Key missing.", "system");
+      addLog("APIキーが見つかりません。", "system");
       return;
     }
 
@@ -113,7 +113,7 @@ export default function CompositionTrainer({ geminiApiKey, geminiModel, geminiVo
       if ('wakeLock' in navigator) {
         try {
           wakeLockRef.current = await (navigator as any).wakeLock.request('screen');
-          addLog("Screen wake lock acquired.", "system");
+          addLog("スリープ防止が有効になりました。", "system");
         } catch (err: any) {
           console.warn("Wake lock failed:", err);
         }
@@ -124,7 +124,7 @@ export default function CompositionTrainer({ geminiApiKey, geminiModel, geminiVo
       wsRef.current = ws;
 
       ws.onopen = () => {
-        addLog(`Connected to Trainer API (Level: ${trainingLevel}${grammarTheme ? `, Theme: ${grammarTheme}` : ''})`, "system");
+        addLog(`トレーナーAPIに接続しました (レベル: ${trainingLevel}${grammarTheme ? `, テーマ: ${grammarTheme}` : ''})`, "system");
         
         const themeInstruction = grammarTheme ? `
 CRITICAL THEME INSTRUCTION:
@@ -180,19 +180,19 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
         stopSession();
         if (event.code !== 1000) {
            let detail = "";
-           if (event.code === 1007) detail = "(1007: Unsupported Payload/Model Mismatch.)";
-           addLog(`Disconnected (${event.code}) ${detail}`, "system");
-           setErrorDetails(`Disconnect code: ${event.code} ${detail}`);
+           if (event.code === 1007) detail = "(1007: サポートされていないペイロードまたはモデルの不一致。)";
+           addLog(`APIから切断されました (${event.code}) ${detail}`, "system");
+           setErrorDetails(`切断コード: ${event.code} ${detail}`);
            setAppState('error');
         } else {
-           addLog("Session ended gracefully.", "system");
+           addLog("セッションが正常に終了しました。", "system");
         }
       };
 
       ws.onerror = (e) => {
         console.error("WebSocket Error", e);
         setAppState('error');
-        addLog("WebSocket Error occurred.", "system");
+        addLog("WebSocketエラーが発生しました。", "system");
       };
 
       ws.onmessage = async (event) => {
@@ -208,7 +208,7 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
 
           if (payload.setupComplete) {
             setAppState('listening');
-            addLog(`Training session started at level ${trainingLevel}. Listening...`, "system");
+            addLog(`レベル ${trainingLevel} でトレーニングを開始しました。聞き取り中...`, "system");
             
             // Delay start to avoid 1008 race condition
             setTimeout(async () => {
@@ -230,7 +230,7 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
              const content = payload.serverContent;
              
              if (content.interrupted) {
-                addLog("Interrupted by user.", "system");
+                addLog("ユーザーによって中断されました。", "system");
                 playerRef.current?.stop();
                 finalizeStream('model');
                 finalizeStream('user');
@@ -275,7 +275,7 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
       console.error(e);
       setAppState('error');
       setErrorDetails(e.message);
-      addLog(`Failed to start session: ${e.message}`, "system");
+      addLog(`セッションの開始に失敗しました: ${e.message}`, "system");
     }
   };
 
@@ -323,7 +323,7 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
     } finally {
       setIsGeneratingFeedback(false);
     }
-  }, [geminiApiKey, geminiModel]);
+  }, [geminiApiKey, geminiModel, trainingLevel, grammarTheme]);
 
   // A more robust way to trigger feedback capturing the latest logs at stop
   const performStop = () => {
@@ -426,14 +426,14 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
               onClick={startSession}
               style={{ ...btnBaseStyles, color: 'var(--brand-primary)', backgroundColor: 'var(--brand-light)' }}
             >
-              <Mic size={16} /> START
+              <Mic size={16} /> 開始
             </button>
           ) : (
             <button 
               onClick={performStop}
               style={{ ...btnBaseStyles, color: 'var(--error)', backgroundColor: 'var(--error-bg)' }}
             >
-              <LogOut size={16} /> END
+              <LogOut size={16} /> 終了
             </button>
           )}
 
@@ -470,7 +470,7 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
       {isGeneratingFeedback && (
         <div style={{ padding: '1rem', marginBottom: '1rem', backgroundColor: 'var(--brand-light)', border: '1px solid var(--brand-primary)', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)' }}>
           <Loader size={16} className="animate-spin" />
-          GENERATING SESSION FEEDBACK...
+          セッションのフィードバックを生成中...
         </div>
       )}
 
@@ -483,7 +483,7 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
             <X size={18} />
           </button>
           <h4 style={{ margin: '0 0 1rem 0', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            Session Feedback
+            セッションフィードバック
           </h4>
           <div className="markdown-body" style={{ fontSize: '0.9rem', lineHeight: 1.6, color: 'var(--text-primary)' }}>
             <ReactMarkdown>{sessionFeedback}</ReactMarkdown>
@@ -510,14 +510,14 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
               onClick={clearLogs}
               style={{ backgroundColor: 'transparent', border: 'none', color: 'var(--text-tertiary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem' }}
             >
-              <Trash2 size={12} /> CLEAR
+              <Trash2 size={12} /> クリア
             </button>
           )}
         </div>
         
         <div style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
           {logs.length === 0 ? (
-            <div style={{ color: 'var(--text-tertiary)', fontStyle: 'italic' }}>&gt; Select a level and START to begin...</div>
+            <div style={{ color: 'var(--text-tertiary)', fontStyle: 'italic' }}>&gt; レベルを選択して「開始」を押してください...</div>
           ) : (
           logs.map((log) => (
             <div 
