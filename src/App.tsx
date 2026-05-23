@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings, BrainCircuit, Headphones, HelpCircle, MessageSquare, Zap, GraduationCap, Mic, Coffee, Camera, Volume2 } from 'lucide-react';
+import { Settings, BrainCircuit, Headphones, HelpCircle, MessageSquare, Zap, GraduationCap, Mic, Coffee, Camera, Volume2, Menu, X } from 'lucide-react';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import SettingsPanel from './components/SettingsPanel';
 import Dashboard from './components/Dashboard';
@@ -30,6 +30,7 @@ function App() {
   };
 
   const [view, setView] = useState<View>(getViewFromHash());
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   React.useEffect(() => {
     const handleHashChange = () => setView(getViewFromHash());
@@ -82,98 +83,124 @@ function App() {
   return (
     <div className="container animate-fade-in">
       <header style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', marginBottom: 'clamp(1rem, 4vw, 2rem)' }}>
-        <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', margin: 0 }}>
+        <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', margin: 0, zIndex: 2000 }}>
           <BrainCircuit color="var(--brand-primary)" />
           <span className="text-gradient">// yuKnow</span>
           <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', fontWeight: 'normal', fontFamily: 'monospace', marginLeft: '0.5rem' }}>
             v{packageJson.version}
           </span>
         </h1>
-        <nav style={{ display: 'flex', gap: 'clamp(0.25rem, 2vw, 0.5rem)', flexWrap: 'wrap' }}>
-          <button 
-            className={`btn ${view === 'shadowing' ? 'btn-primary' : 'btn-secondary'}`} 
-            onClick={() => setView('shadowing')}
-            disabled={!isShadowingConfigured}
-          >
-            <Headphones size={18} /> Shadowing
-          </button>
-          <button 
-            className={`btn ${view === 'coaching' ? 'btn-primary' : 'btn-secondary'}`} 
-            onClick={() => setView('coaching')}
-            disabled={!isShadowingConfigured}
-          >
-            <MessageSquare size={18} /> Coaching
-          </button>
-          <button 
-            className={`btn ${view === 'gemini_live' ? 'btn-primary' : 'btn-secondary'}`} 
-            onClick={() => setView('gemini_live')}
-            disabled={!geminiApiKey}
-          >
-            <Zap size={18} /> Monologue
-          </button>
-          <button 
-            className={`btn ${view === 'composition' ? 'btn-primary' : 'btn-secondary'}`} 
-            onClick={() => setView('composition')}
-            disabled={!geminiApiKey}
-          >
-            <GraduationCap size={18} /> Reflex
-          </button>
-          <button 
-            className={`btn ${view === 'gotanakakei' ? 'btn-primary' : 'btn-secondary'}`} 
-            onClick={() => setView('gotanakakei')}
-            disabled={!geminiApiKey}
-          >
-            <Mic size={18} /> GoTanakaKei
-          </button>
-          <button 
-            className={`btn ${view === 'freetalk' ? 'btn-primary' : 'btn-secondary'}`} 
-            onClick={() => setView('freetalk')}
-            disabled={!geminiApiKey}
-          >
-            <Coffee size={18} /> Dialogue
-          </button>
-          <button
-            className={`btn ${view === 'teacher' ? 'btn-primary' : 'btn-secondary'}`}
-            onClick={() => setView('teacher')}
-            disabled={!geminiApiKey}
-          >
-            <GraduationCap size={18} /> Teacher
-          </button>
-          <button 
-            className={`btn ${view === 'tuning' ? 'btn-primary' : 'btn-secondary'}`} 
-            onClick={() => setView('tuning')}
-            disabled={!geminiApiKey}
-          >
-            <Volume2 size={18} /> Tuning
-          </button>
-          <button 
-            className={`btn ${view === 'photodesc' ? 'btn-primary' : 'btn-secondary'}`} 
-            onClick={() => setView('photodesc')}
-            disabled={!geminiApiKey}
-          >
-            <Camera size={18} /> Describe
-          </button>
-          <button 
-            className={`btn ${view === 'dashboard' ? 'btn-primary' : 'btn-secondary'}`} 
-            onClick={() => setView('dashboard')}
-            disabled={!isFlashcardConfigured}
-          >
-            <BrainCircuit size={18} /> Flashcards
-          </button>
-          <button 
-            className={`btn ${view === 'settings' ? 'btn-primary' : 'btn-secondary'}`} 
-            onClick={() => setView('settings')}
-          >
-            <Settings size={18} /> Settings
-          </button>
-          <button 
-            className={`btn ${view === 'help' ? 'btn-primary' : 'btn-secondary'}`} 
-            onClick={() => setView('help')}
-          >
-            <HelpCircle size={18} /> Help
-          </button>
-        </nav>
+        <button
+          className="btn btn-secondary icon-btn"
+          onClick={() => setIsMenuOpen(true)}
+          style={{ zIndex: 2000 }}
+          aria-label="Open Menu"
+        >
+          <Menu size={24} />
+        </button>
       </header>
+
+      {isMenuOpen && (
+        <div className="menu-overlay animate-fade-in">
+          <div className="menu-header">
+            <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', margin: 0 }}>
+              <BrainCircuit color="var(--brand-primary)" />
+              <span className="text-gradient">// yuKnow</span>
+            </h1>
+            <button
+              className="btn btn-secondary icon-btn"
+              onClick={() => setIsMenuOpen(false)}
+              aria-label="Close Menu"
+            >
+              <X size={24} />
+            </button>
+          </div>
+          <nav className="menu-nav">
+            <button
+              className={`btn menu-btn ${view === 'shadowing' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('shadowing'); setIsMenuOpen(false); }}
+              disabled={!isShadowingConfigured}
+            >
+              <Headphones size={20} /> Shadowing
+            </button>
+            <button
+              className={`btn menu-btn ${view === 'coaching' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('coaching'); setIsMenuOpen(false); }}
+              disabled={!isShadowingConfigured}
+            >
+              <MessageSquare size={20} /> Coaching
+            </button>
+            <button
+              className={`btn menu-btn ${view === 'gemini_live' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('gemini_live'); setIsMenuOpen(false); }}
+              disabled={!geminiApiKey}
+            >
+              <Zap size={20} /> Monologue
+            </button>
+            <button
+              className={`btn menu-btn ${view === 'composition' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('composition'); setIsMenuOpen(false); }}
+              disabled={!geminiApiKey}
+            >
+              <GraduationCap size={20} /> Reflex
+            </button>
+            <button
+              className={`btn menu-btn ${view === 'gotanakakei' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('gotanakakei'); setIsMenuOpen(false); }}
+              disabled={!geminiApiKey}
+            >
+              <Mic size={20} /> GoTanakaKei
+            </button>
+            <button
+              className={`btn menu-btn ${view === 'freetalk' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('freetalk'); setIsMenuOpen(false); }}
+              disabled={!geminiApiKey}
+            >
+              <Coffee size={20} /> Dialogue
+            </button>
+            <button
+              className={`btn menu-btn ${view === 'teacher' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('teacher'); setIsMenuOpen(false); }}
+              disabled={!geminiApiKey}
+            >
+              <GraduationCap size={20} /> Teacher
+            </button>
+            <button
+              className={`btn menu-btn ${view === 'tuning' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('tuning'); setIsMenuOpen(false); }}
+              disabled={!geminiApiKey}
+            >
+              <Volume2 size={20} /> Tuning
+            </button>
+            <button
+              className={`btn menu-btn ${view === 'photodesc' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('photodesc'); setIsMenuOpen(false); }}
+              disabled={!geminiApiKey}
+            >
+              <Camera size={20} /> Describe
+            </button>
+            <button
+              className={`btn menu-btn ${view === 'dashboard' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('dashboard'); setIsMenuOpen(false); }}
+              disabled={!isFlashcardConfigured}
+            >
+              <BrainCircuit size={20} /> Flashcards
+            </button>
+            <button
+              className={`btn menu-btn ${view === 'settings' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('settings'); setIsMenuOpen(false); }}
+            >
+              <Settings size={20} /> Settings
+            </button>
+            <button
+              className={`btn menu-btn ${view === 'help' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => { setView('help'); setIsMenuOpen(false); }}
+            >
+              <HelpCircle size={20} /> Help
+            </button>
+          </nav>
+        </div>
+      )}
       
       <main 
         className={view === 'shadowing' ? '' : 'glass-panel'} 
