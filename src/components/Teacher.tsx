@@ -42,6 +42,8 @@ export default function Teacher({ googleClientId, geminiApiKey, geminiModel, gem
   const logEndRef = useRef<HTMLDivElement | null>(null);
   const wakeLockRef = useRef<any>(null);
 
+  const modelOverride = "models/gemini-3.1-flash-live-preview";
+
   const addLog = useCallback((text: string, sender: 'user' | 'model' | 'system', isStream: boolean = false) => {
     setLogs(prev => {
       const last = prev[prev.length - 1];
@@ -110,7 +112,7 @@ export default function Teacher({ googleClientId, geminiApiKey, geminiModel, gem
       wsRef.current = ws;
 
       ws.onopen = () => {
-        addLog(`Connected to Teacher API`, "system");
+        addLog(`Connected to Teacher API (${modelOverride})`, "system");
 
         const systemPrompt = `You are a friendly, bright, smart, and encouraging English tutor.
 You will be giving a ${duration}-minute English lesson to a student.
@@ -134,7 +136,7 @@ Instructions:
 
         const setupMsg = {
           setup: {
-            model: "models/gemini-2.0-flash-exp",
+            model: modelOverride,
             generationConfig: {
               responseModalities: ["AUDIO"],
               speechConfig: {

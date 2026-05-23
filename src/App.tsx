@@ -63,7 +63,7 @@ function App() {
   const [googleClientId, setGoogleClientId] = useLocalStorage('uknow_google_client_id', '');
   const [geminiApiKey, setGeminiApiKey] = useLocalStorage('uknow_gemini_api_key', '');
   const [docId, setDocId] = useLocalStorage('uknow_doc_id', '');
-  const [geminiModel, setGeminiModel] = useLocalStorage('uknow_gemini_model', 'gemini-3.1-flash-lite-preview');
+  const [geminiModel, setGeminiModel] = useLocalStorage('uknow_gemini_model', 'gemini-3.5-flash');
   const [geminiVoice, setGeminiVoice] = useLocalStorage('uknow_gemini_voice', 'Aoede');
   const [theme, setTheme] = useLocalStorage('uknow_theme', 'light');
 

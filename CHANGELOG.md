@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.1] - 2026-05-23
+### Added
+- **Settings (設定)**:
+  - 利用可能な Gemini モデルの選択肢に次世代標準の **`gemini-3.5-flash`** を追加し、アプリケーション全体のデフォルトモデルに設定。
+  - 非推奨プレビュー版の `gemini-3.1-flash-lite-preview` および `gemini-3-flash-preview` を削除し、新たに安定高速モデルである **`gemini-3.1-flash-lite`** を追加。
+  - Gemini 音声（`voice_name`）の選択欄に合計30種類のキャラクターを追加し、それぞれに日本語での声質・キャラクターイメージの特徴説明（例：「明るい」「しっかりした」「優しい」等）を表示。
+  - 選択した音声の声をその場で試聴できる **「🔊 サンプル再生」ボタン** を実装。APIのAUDIO出力（音声合成）機能を利用して、リアルタイムでサンプル挨拶を生成・再生可能に。
+
+### Fixed
+- **AI 専属コーチ (Teacher)**: WebSocket接続時のモデルを非推奨の `gemini-2.0-flash-exp` から最新の `models/gemini-3.1-flash-live-preview` にアップデートし、レッスン開始時に発生していた接続エラー（`Disconnect code: 1008`）を解消。
+
 ## [2.0.0] - 2026-05-24
 ### Changed
 - **Documentation**: 全体的なドキュメント（README.md）の見直しを実施。
