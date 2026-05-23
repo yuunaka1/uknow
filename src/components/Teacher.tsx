@@ -72,7 +72,7 @@ export default function Teacher({ googleClientId, geminiApiKey, geminiModel, gem
 
   const startLesson = async () => {
     if (!geminiApiKey) {
-      setErrorDetails("Gemini API Key is missing.");
+      setErrorDetails("Gemini APIキーが見つかりません。");
       return;
     }
     if (!token) {
@@ -80,7 +80,7 @@ export default function Teacher({ googleClientId, geminiApiKey, geminiModel, gem
         return;
     }
     if (!docId) {
-        setErrorDetails("Document ID is missing. Configure it in Settings.");
+        setErrorDetails("ドキュメントIDが見つかりません。設定画面で構成してください。");
         return;
     }
 
@@ -89,10 +89,10 @@ export default function Teacher({ googleClientId, geminiApiKey, geminiModel, gem
       setErrorDetails("");
       setLogs([]); // clear logs for new lesson
 
-      addLog("Fetching your notes from Google Docs...", "system");
+      addLog("Google Docsからノートを取得しています...", "system");
       const docText = await fetchGoogleDocText(docId, token);
-      if (!docText) throw new Error("Document is empty or could not be accessed.");
-      addLog("Notes fetched successfully.", "system");
+      if (!docText) throw new Error("ドキュメントが空か、アクセスできませんでした。");
+      addLog("ノートの取得に成功しました。", "system");
 
       playerRef.current = new AudioStreamPlayer();
       recorderRef.current = new AudioRecorder();
@@ -166,7 +166,7 @@ Instructions:
       ws.onerror = (e) => {
         console.error("WebSocket Error", e);
         setAppState('error');
-        addLog("WebSocket Error occurred.", "system");
+        addLog("WebSocketエラーが発生しました。", "system");
       };
 
       ws.onmessage = async (event) => {
@@ -248,7 +248,7 @@ Instructions:
       console.error(e);
       setAppState('error');
       setErrorDetails(e.message);
-      addLog(`Failed to start lesson: ${e.message}`, "system");
+      addLog(`レッスンの開始に失敗しました: ${e.message}`, "system");
     }
   };
 
@@ -282,7 +282,7 @@ Instructions:
          // Gather full transcript
          const transcript = logs.map(l => `${l.sender.toUpperCase()}: ${l.text}`).join('\n');
 
-         const prompt = `Based on the following English lesson transcript, evaluate the student's current English level and identify their specific weaknesses (grammar, pronunciation, vocabulary, fluency, etc.). Provide a concise summary that can be saved as a profile for future lessons.
+         const prompt = `Based on the following English lesson transcript, evaluate the student's current English level and identify their specific weaknesses (grammar, pronunciation, vocabulary, fluency, etc.) in Japanese. Provide a concise summary that can be saved as a profile for future lessons.
 Keep it under 300 words.
 
 <transcript>
@@ -337,7 +337,7 @@ ${transcript}
     <div className="animate-fade-in glass-panel" style={{ padding: 'clamp(1rem, 2vw, 1.5rem)', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 140px)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)', margin: 0, fontSize: '1.25rem' }}>
-          <BookOpen size={20} className="text-gradient" /> AI TEACHER
+          <BookOpen size={20} className="text-gradient" /> AI 専属コーチ
         </h2>
 
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
@@ -347,18 +347,18 @@ ${transcript}
               style={{ ...btnBaseStyles, color: 'var(--brand-primary)', backgroundColor: 'var(--bg-secondary)' }}
               disabled={!token && !isReady}
             >
-              <Mic size={16} /> START LESSON
+              <Mic size={16} /> レッスン開始
             </button>
           ) : appState === 'evaluating' ? (
              <span style={{ fontSize: '0.875rem', color: 'var(--brand-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Loader size={16} className="animate-spin"/> Evaluating...
+                <Loader size={16} className="animate-spin"/> 評価中...
              </span>
           ) : (
             <button
               onClick={() => handleEndSession(true)}
               style={{ ...btnBaseStyles, color: 'var(--error)', backgroundColor: 'var(--error-bg)' }}
             >
-              <LogOut size={16} /> END LESSON
+              <LogOut size={16} /> レッスン終了
             </button>
           )}
 
@@ -389,7 +389,7 @@ ${transcript}
          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1rem', flex: 1 }}>
              <div className="glass-panel" style={{ padding: '1.5rem', backgroundColor: 'var(--bg-secondary)' }}>
                  <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', fontSize: '1.1rem' }}>
-                     <Clock size={18}/> Lesson Duration
+                     <Clock size={18}/> レッスン時間
                  </h3>
                  <div style={{ display: 'flex', gap: '1rem' }}>
                     {[10, 20, 30].map(mins => (
@@ -398,7 +398,7 @@ ${transcript}
                             onClick={() => setDuration(mins as LessonDuration)}
                             className={`btn ${duration === mins ? 'btn-primary' : 'btn-secondary'}`}
                         >
-                            {mins} Minutes
+                            {mins} 分
                         </button>
                     ))}
                  </div>
@@ -406,7 +406,7 @@ ${transcript}
 
              <div className="glass-panel" style={{ padding: '1.5rem', backgroundColor: 'var(--bg-secondary)', display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
                   <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.1rem', margin: 0 }}>
-                     <FileText size={18}/> Student Profile Memory
+                     <FileText size={18}/> 学習履歴・評価プロフィール
                  </h3>
                  {studentMemory ? (
                      <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, whiteSpace: 'pre-wrap', flex: 1, overflowY: 'auto' }}>
@@ -414,7 +414,7 @@ ${transcript}
                      </div>
                  ) : (
                      <p style={{ color: 'var(--text-tertiary)', fontStyle: 'italic' }}>
-                         No previous evaluation found. Take a lesson to build your profile!
+                         前回の評価が見つかりません。レッスンを受講してプロフィールを作成しましょう！
                      </p>
                  )}
              </div>
@@ -432,7 +432,7 @@ ${transcript}
             <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {logs.filter(l => l.sender !== 'system').length === 0 ? (
                 <div style={{ color: 'var(--text-tertiary)', fontStyle: 'italic', textAlign: 'center', marginTop: '2rem' }}>
-                    The lesson is starting...
+                    レッスンを開始しています...
                 </div>
             ) : (
             logs.map((log) => {

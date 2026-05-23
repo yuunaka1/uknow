@@ -131,7 +131,7 @@ Act like a natural, supportive English conversation partner. DO NOT just answer 
       };
 
       ws.onmessage = async (event) => {
-        let msgStr = event.data instanceof Blob ? await event.data.text() : event.data;
+        const msgStr = event.data instanceof Blob ? await event.data.text() : event.data;
         try {
           const payload = JSON.parse(msgStr);
 
@@ -343,14 +343,14 @@ Act like a natural, supportive English conversation partner. DO NOT just answer 
       {isGeneratingFeedback && (
         <div style={{ padding: '1.5rem', marginBottom: '1rem', backgroundColor: 'var(--warning-bg)', border: '1px solid var(--warning)', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--warning)' }}>
           <Loader className="animate-spin" size={20} />
-          <span>Generating session feedback...</span>
+          <span>セッションのフィードバックを生成中...</span>
         </div>
       )}
 
       {feedback && !isGeneratingFeedback && (
         <div style={{ padding: '1.5rem', marginBottom: '1rem', backgroundColor: 'var(--success-bg)', border: '1px solid var(--success)', borderRadius: '8px', flexShrink: 0, maxHeight: '40vh', overflowY: 'auto' }}>
            <h3 style={{ margin: '0 0 1rem 0', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-             <CheckCircle size={20} /> Session Feedback
+             <CheckCircle size={20} /> セッションフィードバック
            </h3>
            <div className="markdown-body" style={{ fontSize: '0.9rem', lineHeight: 1.6, color: 'var(--text-primary)' }}>
              <ReactMarkdown>{feedback}</ReactMarkdown>
@@ -376,7 +376,7 @@ Act like a natural, supportive English conversation partner. DO NOT just answer 
         
         <div style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
           {logs.length === 0 ? (
-            <div style={{ color: 'var(--text-tertiary)', fontStyle: 'italic' }}>&gt; Ready to establish WebSocket stream...</div>
+            <div style={{ color: 'var(--text-tertiary)', fontStyle: 'italic' }}>&gt; WebSocketストリームを確立する準備ができました...</div>
           ) : (
           logs.map((log) => (
             <div 

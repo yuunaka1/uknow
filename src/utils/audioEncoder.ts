@@ -11,7 +11,7 @@ export async function sliceAudioFileToWav(file: File, startTime: number, endTime
   if (safeEndTime > audioBuffer.duration) {
     safeEndTime = audioBuffer.duration;
   }
-  let duration = safeEndTime - startTime;
+  const duration = safeEndTime - startTime;
   
   if (duration <= 0) {
     throw new Error("Invalid time range for audio slicing");

@@ -177,7 +177,7 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)', margin: 0, fontSize: '1.25rem' }}>
-          <Camera size={20} /> Photo Description
+          <Camera size={20} /> 写真描写
         </h2>
         
         {phase === 'result' && (
@@ -188,7 +188,7 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
              disabled={isGeneratingImage}
            >
              {isGeneratingImage ? <Loader size={16} className="animate-spin" /> : <ImageIcon size={16} />} 
-             {isGeneratingImage ? ' GENERATING...' : ' NEXT PHOTO'}
+             {isGeneratingImage ? ' 生成中...' : ' 次の写真'}
            </button>
         )}
       </div>
@@ -217,7 +217,7 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
             {isGeneratingImage || !currentPhoto.url ? (
               <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', color: 'var(--brand-primary)' }}>
                 <Loader size={36} className="animate-spin" style={{ marginBottom: '1rem' }} />
-                <span>AI Generating New Picture...</span>
+                <span>AIが新しい画像を生成しています...</span>
               </div>
             ) : (
               <img 
@@ -238,7 +238,7 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
               boxShadow: `0 0 15px ${mainColor}22`
             }}>
                <div style={{ fontSize: '1.2rem', fontWeight: 'bold', letterSpacing: '2px', color: mainColor, marginBottom: '0.5rem' }}>
-                 {phase === 'prep' ? 'PREPARATION TIME' : 'SPEAKING TIME'}
+                 {phase === 'prep' ? '準備時間' : '解答時間'}
                </div>
                <div style={{ fontSize: '3rem', fontWeight: 'bold', fontFamily: 'monospace', textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
                  00:{timeLeft.toString().padStart(2, '0')}
@@ -254,9 +254,9 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
             {phase === 'idle' && (
               <>
                 <button className="btn btn-primary" onClick={startPrep} disabled={isGeneratingImage || !currentPhoto.url} style={{ padding: '0.75rem 2rem' }}>
-                  <Play size={18} /> START PRACTICE
+                  <Play size={18} /> 練習を開始
                 </button>
-                <button className="btn btn-secondary" onClick={generateNewPhoto} disabled={isGeneratingImage} title="Generate Another Photo" aria-label="Generate Another Photo">
+                <button className="btn btn-secondary" onClick={generateNewPhoto} disabled={isGeneratingImage} title="別の写真を生成" aria-label="別の写真を生成">
                   <RefreshCcw size={18} className={isGeneratingImage ? "animate-spin" : ""} />
                 </button>
               </>
@@ -264,28 +264,28 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
             
             {phase === 'prep' && (
               <button className="btn btn-primary" onClick={() => { if (timerRef.current) clearInterval(timerRef.current); startSpeaking(); }} style={{ padding: '0.75rem 2rem', backgroundColor: 'var(--brand-primary)', color: 'black' }}>
-                <Mic size={18} /> SKIP PREP (SPEAK NOW)
+                <Mic size={18} /> スキップして解答開始
               </button>
             )}
             
             {phase === 'speaking' && (
               <button className="btn btn-secondary" onClick={() => { if (timerRef.current) clearInterval(timerRef.current); stopSpeaking(); }} style={{ padding: '0.75rem 2rem', color: 'var(--error)', borderColor: 'var(--error)' }}>
-                <Square size={18} /> FINISH EARLY
+                <Square size={18} /> 解答を終了
               </button>
             )}
 
             {(phase === 'prep' || phase === 'speaking' || phase === 'error' || phase === 'result') && (
-              <button className="btn btn-secondary" onClick={resetPractice} title="Abort/Reset">
-                <RefreshCcw size={18} /> ABORT
+              <button className="btn btn-secondary" onClick={resetPractice} title="中止/リセット">
+                <RefreshCcw size={18} /> 中止
               </button>
             )}
           </div>
 
           <div style={{ color: 'var(--text-tertiary)', fontSize: '0.85rem', lineHeight: 1.5 }}>
-            <p><strong>Rules:</strong> You will have 45 seconds to prepare your response, and then 45 seconds to speak about the picture.</p>
+            <p><strong>ルール:</strong> 準備時間として45秒、その後、写真について話す解答時間が45秒与えられます。</p>
             {phase === 'evaluating' && (
                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)', padding: '1rem', backgroundColor: 'var(--brand-light)', borderRadius: '4px' }}>
-                 <Loader size={18} className="animate-spin" /> Analyzing your response with Gemini Multimodal Audio API...
+                 <Loader size={18} className="animate-spin" /> Geminiで解答を分析中...
                </div>
             )}
           </div>
@@ -305,10 +305,10 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
             {!resultMarkdown && phase !== 'result' && (
                <div style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', color: 'var(--text-tertiary)', opacity: 0.5 }}>
                  <FileText size={48} style={{ marginBottom: '1rem' }} />
-                 <p>Your performance feedback will appear here.</p>
+                 <p>ここにフィードバックが表示されます。</p>
                  {currentPhoto.title && phase === 'idle' && !isGeneratingImage && (
                     <div style={{ marginTop: '2rem', fontSize: '0.8rem', fontStyle: 'italic', maxWidth: '80%', textAlign: 'center' }}>
-                       (AI Generated Scene Prompt for Context: "{currentPhoto.title}")
+                       (コンテキスト用のAI生成プロンプト: "{currentPhoto.title}")
                     </div>
                  )}
                </div>

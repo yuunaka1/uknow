@@ -293,7 +293,7 @@ function App() {
         {view === 'help' && (
           <div className="animate-fade-in" style={{ overflowX: 'auto' }}>
             <h2 style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <HelpCircle size={24} /> Documentation
+              <HelpCircle size={24} /> ドキュメント (ヘルプ)
             </h2>
             <div className="markdown-body" style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontSize: '0.9rem' }}>
               <ReactMarkdown 

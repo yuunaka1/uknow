@@ -113,7 +113,7 @@ export default function GoTanakaKei({ geminiApiKey, geminiModel, geminiVoice }: 
     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
         <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0, fontSize: '1.25rem', color: 'var(--brand-primary)' }}>
-          <Mic size={20} /> Personal Topics (GoTanakaKei)
+          <Mic size={20} /> 田中渓メソッド
         </h2>
         
         <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -121,10 +121,10 @@ export default function GoTanakaKei({ geminiApiKey, geminiModel, geminiVoice }: 
              <Plus size={16}/> カスタム追加
            </button>
            <button onClick={handleImport} className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-             <Upload size={16}/> Load JSON
+             <Upload size={16}/> JSON読込
            </button>
            <button onClick={handleExport} className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-             <Download size={16}/> Save JSON
+             <Download size={16}/> JSON保存
            </button>
         </div>
       </div>
@@ -156,8 +156,8 @@ export default function GoTanakaKei({ geminiApiKey, geminiModel, geminiVoice }: 
               <button 
                 onClick={(e) => handleDeleteCustom(e, topic.id)}
                 style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', background: 'none', border: 'none', color: 'var(--error)', cursor: 'pointer', opacity: 0.5 }}
-                title="Delete Custom Topic"
-                aria-label="Delete Custom Topic"
+                title="カスタムトピックを削除"
+                aria-label="カスタムトピックを削除"
               >
                 <Trash2 size={16} />
               </button>

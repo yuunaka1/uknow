@@ -106,7 +106,7 @@ export default function LiveInterviewPanel({ geminiApiKey, geminiVoice, systemIn
       };
 
       ws.onmessage = async (event) => {
-        let msgStr = event.data instanceof Blob ? await event.data.text() : event.data;
+        const msgStr = event.data instanceof Blob ? await event.data.text() : event.data;
         try {
           const payload = JSON.parse(msgStr);
 
@@ -209,12 +209,12 @@ export default function LiveInterviewPanel({ geminiApiKey, geminiVoice, systemIn
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <h4 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           {appState === 'idle' ? <Mic size={18} /> : appState === 'speaking' ? <Globe size={18} className="animate-pulse"/> : <div style={{width: 8, height: 8, borderRadius: '50%', backgroundColor: currentColor, animation: 'pulse 1.5s infinite'}}/>}
-          Real-time Interview {lang === 'ja' ? '(日本語)' : '(English)'}
+          リアルタイム面接 {lang === 'ja' ? '(日本語)' : '(英語)'}
         </h4>
         
         {appState === 'idle' && (
            <button onClick={startSession} style={{ padding: '0.4rem 0.8rem', borderRadius: '4px', backgroundColor: 'var(--brand-light)', color: 'var(--brand-primary)', border: '1px solid var(--brand-primary)', cursor: 'pointer', fontWeight: 'bold' }}>
-             START INTERVIEW
+             面接を開始
            </button>
         )}
         
@@ -222,7 +222,7 @@ export default function LiveInterviewPanel({ geminiApiKey, geminiVoice, systemIn
            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
              <span style={{ fontSize: '0.8rem' }}>{appState.toUpperCase()}...</span>
              <button onClick={stopSession} style={{ padding: '0.4rem 0.8rem', borderRadius: '4px', backgroundColor: 'var(--error-bg)', color: 'var(--error)', border: '1px solid var(--error)', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-               <LogOut size={14} /> FINISH
+               <LogOut size={14} /> 終了
              </button>
            </div>
         )}
@@ -233,7 +233,7 @@ export default function LiveInterviewPanel({ geminiApiKey, geminiVoice, systemIn
       <div style={{ maxHeight: '200px', overflowY: 'auto', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
         {logs.map((log) => (
           <div key={log.id} style={{ marginBottom: '0.5rem', color: log.sender === 'model' ? currentColor : 'var(--text-tertiary)' }}>
-            <span style={{ opacity: 0.7 }}>{log.sender === 'user' ? 'You: ' : 'AI: '}</span>
+            <span style={{ opacity: 0.7 }}>{log.sender === 'user' ? 'あなた: ' : 'AI: '}</span>
             {log.text}
           </div>
         ))}

@@ -46,9 +46,9 @@ export default function Quiz({ onComplete }: { onComplete: () => void }) {
   if (cards.length === 0) {
     return (
       <div className="glass-panel animate-fade-in" style={{ padding: '3rem', textAlign: 'center' }}>
-        <h2>All caught up!</h2>
-        <p style={{ color: 'var(--text-secondary)', marginTop: '1rem', marginBottom: '2rem' }}>You have no words to review right now.</p>
-        <button className="btn btn-primary" onClick={onComplete}>Back to Dashboard</button>
+        <h2>すべて完了しました！</h2>
+        <p style={{ color: 'var(--text-secondary)', marginTop: '1rem', marginBottom: '2rem' }}>現在復習する単語はありません。</p>
+        <button className="btn btn-primary" onClick={onComplete}>ダッシュボードに戻る</button>
       </div>
     );
   }
@@ -59,9 +59,9 @@ export default function Quiz({ onComplete }: { onComplete: () => void }) {
   if (isFinished) {
     return (
       <div className="glass-panel animate-fade-in" style={{ padding: '3rem', textAlign: 'center' }}>
-        <h2>Session Complete! 🎉</h2>
-        <p style={{ color: 'var(--text-secondary)', marginTop: '1rem', marginBottom: '2rem' }}>You reviewed {cards.length} items.</p>
-        <button className="btn btn-primary" onClick={onComplete}>Finish</button>
+        <h2>セッション完了！ 🎉</h2>
+        <p style={{ color: 'var(--text-secondary)', marginTop: '1rem', marginBottom: '2rem' }}>{cards.length} 件のアイテムを復習しました。</p>
+        <button className="btn btn-primary" onClick={onComplete}>終了</button>
       </div>
     );
   }
@@ -79,7 +79,7 @@ export default function Quiz({ onComplete }: { onComplete: () => void }) {
   return (
     <div className="animate-fade-in" style={{ maxWidth: '600px', margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', color: 'var(--text-tertiary)', fontSize: '0.875rem' }}>
-        <span>Reviewing</span>
+        <span>復習中</span>
         <span>{currentIndex + 1} / {cards.length}</span>
       </div>
 
@@ -91,7 +91,7 @@ export default function Quiz({ onComplete }: { onComplete: () => void }) {
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
           
           <span style={{ padding: '0.2rem 0.6rem', background: 'var(--brand-light)', color: 'var(--brand-primary)', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 600, marginBottom: '1.5rem', textTransform: 'uppercase' }}>
-            {currentCard.vocab.partOfSpeech || 'Word'}
+            {currentCard.vocab.partOfSpeech || '単語'}
           </span>
           
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -100,8 +100,8 @@ export default function Quiz({ onComplete }: { onComplete: () => void }) {
               className="btn btn-secondary" 
               style={{ padding: '0.5rem', borderRadius: '50%', background: 'transparent', border: 'none', cursor: 'pointer' }}
               onClick={() => speak(currentCard.vocab.term)}
-              title="Listen pronunciation"
-              aria-label="Listen pronunciation"
+              title="発音を聞く"
+              aria-label="発音を聞く"
             >
               <Volume2 size={24} color="var(--brand-primary)" />
             </button>
@@ -121,8 +121,8 @@ export default function Quiz({ onComplete }: { onComplete: () => void }) {
                        className="btn btn-secondary" 
                        style={{ padding: '0.4rem', borderRadius: '50%', background: 'transparent', border: 'none', cursor: 'pointer' }}
                        onClick={() => speak(currentCard.vocab.exampleSentence)}
-                       title="Listen example sentence"
-                       aria-label="Listen example sentence"
+                       title="例文を聞く"
+                       aria-label="例文を聞く"
                      >
                        <Volume2 size={18} color="var(--text-secondary)" />
                      </button>
@@ -136,15 +136,15 @@ export default function Quiz({ onComplete }: { onComplete: () => void }) {
         <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
           {!showAnswer ? (
             <button className="btn btn-primary" onClick={() => setShowAnswer(true)} style={{ width: '100%' }}>
-              Show Answer
+              答えを表示
             </button>
           ) : (
             <>
               <button className="btn btn-secondary" onClick={() => handleScore(1)} style={{ flex: 1, borderColor: 'var(--error)' }}>
-                <X color="var(--error)" size={18} style={{ marginRight: '0.5rem' }}/> Again
+                <X color="var(--error)" size={18} style={{ marginRight: '0.5rem' }}/> もう一度 (Again)
               </button>
               <button className="btn btn-secondary" onClick={() => handleScore(4)} style={{ flex: 1, borderColor: 'var(--success)', color: 'var(--success)' }}>
-                <Check size={18} style={{ marginRight: '0.5rem' }}/> Good
+                <Check size={18} style={{ marginRight: '0.5rem' }}/> できた (Good)
               </button>
             </>
           )}

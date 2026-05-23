@@ -65,7 +65,7 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
 
   const startSession = async () => {
     if (!geminiApiKey) {
-      addLog("API Key missing.", "system");
+      addLog("APIキーが見つかりません。", "system");
       return;
     }
 
@@ -79,7 +79,7 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
       if ('wakeLock' in navigator) {
         try {
           wakeLockRef.current = await (navigator as any).wakeLock.request('screen');
-          addLog("Screen wake lock acquired.", "system");
+          addLog("スリープ防止が有効になりました。", "system");
         } catch (err: any) {
           console.warn("Wake lock failed:", err);
         }
@@ -91,7 +91,7 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
       wsRef.current = ws;
 
       ws.onopen = () => {
-        addLog(`Connected to Multimodal Live API (${modelOverride})`, "system");
+        addLog(`マルチモーダル Live API に接続しました (${modelOverride})`, "system");
         
         // 2. Send Setup Message
         const setupMsg = {
@@ -123,19 +123,19 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
         stopSession();
         if (event.code !== 1000) { // Disconnected abnormally
            let detail = "";
-           if (event.code === 1007) detail = "(1007: Unsupported Payload/Model Mismatch. Check if the model supports Live API.)";
-           addLog(`Disconnected from API (${event.code}) ${detail}`, "system");
-           setErrorDetails(`Disconnect code: ${event.code} ${detail}`);
+           if (event.code === 1007) detail = "(1007: サポートされていないペイロードまたはモデルの不一致。モデルがLive APIをサポートしているか確認してください。)";
+           addLog(`APIから切断されました (${event.code}) ${detail}`, "system");
+           setErrorDetails(`切断コード: ${event.code} ${detail}`);
            setAppState('error');
         } else {
-           addLog("Session ended gracefully.", "system");
+           addLog("セッションが正常に終了しました。", "system");
         }
       };
 
       ws.onerror = (e) => {
         console.error("WebSocket Error", e);
         setAppState('error');
-        addLog("WebSocket Error occurred.", "system");
+        addLog("WebSocketエラーが発生しました。", "system");
       };
 
       ws.onmessage = async (event) => {
@@ -153,7 +153,7 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
           // Handle Setup Complete
           if (payload.setupComplete) {
             setAppState('listening');
-            addLog("Setup complete. Starting microphone...", "system");
+            addLog("セットアップ完了。マイクを開始します...", "system");
             
             // Delay start to avoid 1008 race condition
             setTimeout(async () => {
@@ -178,7 +178,7 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
              
              // Interrupt event
              if (content.interrupted) {
-                addLog("Interrupted by user.", "system");
+                addLog("ユーザーによって中断されました。", "system");
                 playerRef.current?.stop();
                 finalizeStream('model');
                 finalizeStream('user');
@@ -229,7 +229,7 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
       console.error(e);
       setAppState('error');
       setErrorDetails(e.message);
-      addLog(`Failed to start session: ${e.message}`, "system");
+      addLog(`セッションの開始に失敗しました: ${e.message}`, "system");
     }
   };
 
@@ -291,7 +291,7 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
     <div className="animate-fade-in glass-panel" style={{ padding: 'clamp(1rem, 2vw, 1.5rem)', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 140px)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)', margin: 0, fontSize: '1.25rem' }}>
-          <Zap size={20} /> MONOLOGUE MODE
+          <Zap size={20} /> 独り言スピーチ
         </h2>
 
         {/* Control Panel Inline */}
@@ -301,14 +301,14 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
               onClick={startSession}
               style={{ ...btnBaseStyles, color: 'var(--brand-primary)', backgroundColor: 'var(--brand-light)' }}
             >
-              <Mic size={16} /> START
+              <Mic size={16} /> 開始
             </button>
           ) : (
             <button 
               onClick={stopSession}
               style={{ ...btnBaseStyles, color: 'var(--error)', backgroundColor: 'var(--error-bg)' }}
             >
-              <LogOut size={16} /> END
+              <LogOut size={16} /> 終了
             </button>
           )}
 
@@ -363,14 +363,14 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
               onClick={clearLogs}
               style={{ backgroundColor: 'transparent', border: 'none', color: 'var(--text-tertiary)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem' }}
             >
-              <Trash2 size={12} /> CLEAR
+              <Trash2 size={12} /> クリア
             </button>
           )}
         </div>
         
         <div style={{ flex: 1, overflowY: 'auto', padding: '1rem' }}>
           {logs.length === 0 ? (
-            <div style={{ color: 'var(--text-tertiary)', fontStyle: 'italic' }}>&gt; Ready to establish WebSocket stream...</div>
+            <div style={{ color: 'var(--text-tertiary)', fontStyle: 'italic' }}>&gt; WebSocketストリームを確立する準備ができました...</div>
           ) : (
           logs.map((log) => (
             <div 
