@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.0] - 2026-05-24
+### Changed
+- **Documentation**: 全体的なドキュメント（README.md）の見直しを実施。
+  - 装飾的・宣伝的な表現や「ハッカー風」といった記述を削除し、事実ベースの落ち着いたトーンに統一。
+  - UIのスクリーンショット画像をすべて削除。
+  - 各機能名の表記を英語から日本語へと翻訳・統一。
+  - 各機能を表す絵文字をアプリ内メニューのアイコンと親和性のあるものに統一。
+
 ## [1.16.0] - 2026-05-23
 ### Added
 - **AI Teacher**: Added new interactive AI Teacher feature that reads your Flashcard Google Docs notes.
