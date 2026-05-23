@@ -379,7 +379,7 @@ export default function ShadowingPlayer({ geminiApiKey, geminiModel }: { geminiA
           <Upload size={18} /> Load Audio File
           <input 
             type="file" 
-            accept="audio/*" 
+            accept="audio/*, audio/mp3, audio/mpeg, audio/mp4, audio/wav, audio/x-m4a, .mp3, .m4a, .wav"
             onChange={handleFileChange} 
             style={{ display: 'none' }} 
           />
