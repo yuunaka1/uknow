@@ -51,7 +51,7 @@ export default function SettingsPanel({
               }
             }
           }
-        }
+        } as any
       });
 
       const response = await result.response;
