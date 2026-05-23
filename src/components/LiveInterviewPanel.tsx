@@ -202,7 +202,7 @@ export default function LiveInterviewPanel({ geminiApiKey, geminiVoice, systemIn
     };
   }, [cleanup]);
 
-  const currentColor = appState === 'speaking' ? 'var(--brand-primary)' : appState === 'listening' ? '#00ccff' : '#aaa';
+  const currentColor = appState === 'speaking' ? 'var(--brand-primary)' : appState === 'listening' ? 'var(--brand-primary)' : 'var(--text-tertiary)';
 
   return (
     <div style={{ padding: '1rem', border: '1px solid currentColor', borderRadius: '8px', color: currentColor, marginBottom: '1rem' }}>
@@ -213,7 +213,7 @@ export default function LiveInterviewPanel({ geminiApiKey, geminiVoice, systemIn
         </h4>
         
         {appState === 'idle' && (
-           <button onClick={startSession} style={{ padding: '0.4rem 0.8rem', borderRadius: '4px', backgroundColor: 'rgba(0, 204, 255, 0.1)', color: '#00ccff', border: '1px solid #00ccff', cursor: 'pointer', fontWeight: 'bold' }}>
+           <button onClick={startSession} style={{ padding: '0.4rem 0.8rem', borderRadius: '4px', backgroundColor: 'var(--brand-light)', color: 'var(--brand-primary)', border: '1px solid var(--brand-primary)', cursor: 'pointer', fontWeight: 'bold' }}>
              START INTERVIEW
            </button>
         )}
@@ -221,18 +221,18 @@ export default function LiveInterviewPanel({ geminiApiKey, geminiVoice, systemIn
         {appState !== 'idle' && appState !== 'error' && (
            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
              <span style={{ fontSize: '0.8rem' }}>{appState.toUpperCase()}...</span>
-             <button onClick={stopSession} style={{ padding: '0.4rem 0.8rem', borderRadius: '4px', backgroundColor: 'rgba(255, 51, 51, 0.1)', color: '#ff3333', border: '1px solid #ff3333', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+             <button onClick={stopSession} style={{ padding: '0.4rem 0.8rem', borderRadius: '4px', backgroundColor: 'var(--error-bg)', color: 'var(--error)', border: '1px solid var(--error)', cursor: 'pointer', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                <LogOut size={14} /> FINISH
              </button>
            </div>
         )}
       </div>
 
-      {errorDetails && <div style={{ color: '#ff3333', fontSize: '0.85rem', marginBottom: '1rem' }}><AlertTriangle size={14} /> {errorDetails}</div>}
+      {errorDetails && <div style={{ color: 'var(--error)', fontSize: '0.85rem', marginBottom: '1rem' }}><AlertTriangle size={14} /> {errorDetails}</div>}
 
       <div style={{ maxHeight: '200px', overflowY: 'auto', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
         {logs.map((log) => (
-          <div key={log.id} style={{ marginBottom: '0.5rem', color: log.sender === 'model' ? currentColor : '#888' }}>
+          <div key={log.id} style={{ marginBottom: '0.5rem', color: log.sender === 'model' ? currentColor : 'var(--text-tertiary)' }}>
             <span style={{ opacity: 0.7 }}>{log.sender === 'user' ? 'You: ' : 'AI: '}</span>
             {log.text}
           </div>

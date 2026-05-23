@@ -231,7 +231,7 @@ Please ask me conversational questions about this topic, one at a time, and let 
               </button>
             )}
 
-            <div style={{ padding: '1.5rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', fontSize: '1rem', lineHeight: 1.8, color: 'var(--text-primary)', whiteSpace: 'pre-wrap', borderLeft: '4px solid #0055aa', marginBottom: '2rem' }}>
+            <div style={{ padding: '1.5rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', fontSize: '1rem', lineHeight: 1.8, color: 'var(--text-primary)', whiteSpace: 'pre-wrap', borderLeft: '4px solid var(--brand-primary)', marginBottom: '2rem' }}>
               {topic.englishScript || "※ まだスクリプトが生成されていません！ (Phase 2 で作成してください)"}
             </div>
             

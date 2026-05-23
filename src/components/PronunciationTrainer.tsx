@@ -283,12 +283,12 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
   };
 
   const statusColors = {
-    idle: '#aaa',
-    connecting: '#44aaff',
-    listening: '#44aaff',
+    idle: 'var(--text-tertiary)',
+    connecting: 'var(--brand-primary)',
+    listening: 'var(--brand-primary)',
     processing: 'var(--brand-primary)',
     speaking: 'var(--brand-primary)',
-    error: '#ff3333'
+    error: 'var(--error)'
   };
 
   const currentColor = statusColors[appState];
@@ -296,7 +296,7 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
   return (
     <div className="animate-fade-in glass-panel" style={{ padding: 'clamp(1rem, 2vw, 1.5rem)', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 140px)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
-        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#44aaff', margin: 0, fontSize: '1.25rem' }}>
+        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)', margin: 0, fontSize: '1.25rem' }}>
           <Volume2 size={20} /> TUNING
         </h2>
 
@@ -318,14 +318,14 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
           {appState === 'idle' || appState === 'error' ? (
             <button 
               onClick={startSession}
-              style={{ ...btnBaseStyles, color: '#44aaff', backgroundColor: 'rgba(68, 170, 255, 0.1)' }}
+              style={{ ...btnBaseStyles, color: 'var(--brand-primary)', backgroundColor: 'var(--brand-light)' }}
             >
               <Mic size={16} /> START
             </button>
           ) : (
             <button 
               onClick={stopAndGenerateFeedback}
-              style={{ ...btnBaseStyles, color: '#ff3333', backgroundColor: 'rgba(255, 51, 51, 0.1)' }}
+              style={{ ...btnBaseStyles, color: 'var(--error)', backgroundColor: 'var(--error-bg)' }}
             >
               <LogOut size={16} /> END
             </button>
@@ -337,7 +337,7 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
             gap: '0.4rem', 
             fontWeight: 'bold', 
             color: currentColor,
-            backgroundColor: 'rgba(0,0,0,0.4)',
+            backgroundColor: 'var(--bg-secondary)',
             padding: '0.4rem 0.75rem',
             borderRadius: '4px',
             border: `1px solid ${currentColor}22`,
@@ -354,7 +354,7 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
       </div>
 
       {errorDetails && (
-         <div style={{ padding: '1rem', marginBottom: '1rem', color: '#ff3333', backgroundColor: 'rgba(255,0,0,0.1)', border: '1px solid #ff3333', borderRadius: '4px' }}>
+         <div style={{ padding: '1rem', marginBottom: '1rem', color: 'var(--error)', backgroundColor: 'var(--error-bg)', border: '1px solid var(--error)', borderRadius: '4px' }}>
             <AlertTriangle size={18} style={{ marginBottom: '0.5rem' }}/>
             <br />
             {errorDetails}
@@ -362,7 +362,7 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
       )}
 
       {isGeneratingFeedback && (
-        <div style={{ padding: '1.5rem', marginBottom: '1rem', backgroundColor: 'rgba(68, 170, 255, 0.1)', border: '1px solid #44aaff', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#44aaff' }}>
+        <div style={{ padding: '1.5rem', marginBottom: '1rem', backgroundColor: 'var(--brand-light)', border: '1px solid var(--brand-primary)', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)' }}>
           <Loader className="animate-spin" size={20} />
           <span>Generating session feedback...</span>
         </div>
@@ -381,16 +381,16 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
 
       <div style={{
         flex: 1,
-        backgroundColor: '#0a1520',
-        border: '1px solid #1a334d',
+        backgroundColor: 'var(--bg-primary)',
+        border: '1px solid var(--border-color)',
         borderRadius: '4px',
         fontFamily: "'Fira Code', monospace",
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden'
       }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderBottom: '1px solid #1a334d', backgroundColor: '#0a1520', zIndex: 10 }}>
-          <h3 style={{ fontSize: '0.9rem', color: '#44aaff', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderBottom: '1px solid var(--border-color)', backgroundColor: 'var(--bg-primary)', zIndex: 10 }}>
+          <h3 style={{ fontSize: '0.9rem', color: 'var(--brand-primary)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             TUNING_STREAM_LOG
           </h3>
         </div>
@@ -404,7 +404,7 @@ Keep your feedback very concise and strictly focused on pronunciation. Do not gi
               key={log.id} 
               style={{
                 marginBottom: '0.5rem',
-                color: log.sender === 'model' ? '#44aaff' : log.sender === 'user' ? '#888' : '#6688aa',
+                color: log.sender === 'model' ? 'var(--brand-primary)' : log.sender === 'user' ? 'var(--text-tertiary)' : 'var(--text-secondary)',
                 fontSize: '0.9rem',
                 fontStyle: log.sender === 'system' ? 'italic' : 'normal',
                 opacity: log.sender === 'system' ? 0.7 : 1,

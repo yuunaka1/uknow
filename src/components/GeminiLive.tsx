@@ -277,12 +277,12 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
   };
 
   const statusColors = {
-    idle: '#aaa',
-    connecting: '#ffaa00',
-    listening: '#00ff41',
+    idle: 'var(--text-tertiary)',
+    connecting: 'var(--warning)',
+    listening: 'var(--brand-primary)',
     processing: 'var(--brand-primary)',
     speaking: 'var(--brand-primary)',
-    error: '#ff3333'
+    error: 'var(--error)'
   };
 
   const currentColor = statusColors[appState];
@@ -290,7 +290,7 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
   return (
     <div className="animate-fade-in glass-panel" style={{ padding: 'clamp(1rem, 2vw, 1.5rem)', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 140px)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#00ff41', margin: 0, fontSize: '1.25rem' }}>
+        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)', margin: 0, fontSize: '1.25rem' }}>
           <Zap size={20} /> MONOLOGUE MODE
         </h2>
 
@@ -299,14 +299,14 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
           {appState === 'idle' || appState === 'error' ? (
             <button 
               onClick={startSession}
-              style={{ ...btnBaseStyles, color: '#00ff41', backgroundColor: 'rgba(0, 255, 65, 0.1)' }}
+              style={{ ...btnBaseStyles, color: 'var(--brand-primary)', backgroundColor: 'var(--brand-light)' }}
             >
               <Mic size={16} /> START
             </button>
           ) : (
             <button 
               onClick={stopSession}
-              style={{ ...btnBaseStyles, color: '#ff3333', backgroundColor: 'rgba(255, 51, 51, 0.1)' }}
+              style={{ ...btnBaseStyles, color: 'var(--error)', backgroundColor: 'var(--error-bg)' }}
             >
               <LogOut size={16} /> END
             </button>
@@ -319,7 +319,7 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
             gap: '0.4rem', 
             fontWeight: 'bold', 
             color: currentColor,
-            backgroundColor: 'rgba(0,0,0,0.4)',
+            backgroundColor: 'var(--bg-secondary)',
             padding: '0.4rem 0.75rem',
             borderRadius: '4px',
             border: `1px solid ${currentColor}22`,
@@ -336,7 +336,7 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
       </div>
 
       {errorDetails && (
-         <div style={{ padding: '1rem', marginBottom: '2rem', color: '#ff3333', backgroundColor: 'rgba(255,0,0,0.1)', border: '1px solid #ff3333', borderRadius: '4px' }}>
+         <div style={{ padding: '1rem', marginBottom: '2rem', color: 'var(--error)', backgroundColor: 'var(--error-bg)', border: '1px solid var(--error)', borderRadius: '4px' }}>
             <AlertTriangle size={18} style={{ marginBottom: '0.5rem' }}/>
             <br />
             {errorDetails}
@@ -346,16 +346,16 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
       {/* Terminal Log */}
       <div style={{
         flex: 1,
-        backgroundColor: '#0a0a00',
-        border: '1px solid #005000',
+        backgroundColor: 'var(--bg-primary)',
+        border: '1px solid var(--border-color)',
         borderRadius: '4px',
         fontFamily: "'Fira Code', monospace",
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden'
       }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderBottom: '1px solid #005000', backgroundColor: '#0a0a00', zIndex: 10 }}>
-          <h3 style={{ fontSize: '0.9rem', color: '#005000', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderBottom: '1px solid var(--border-color)', backgroundColor: 'var(--bg-primary)', zIndex: 10 }}>
+          <h3 style={{ fontSize: '0.9rem', color: 'var(--border-color)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             WS_LIVE_STREAM_LOG
           </h3>
           {logs.length > 0 && (
@@ -377,7 +377,7 @@ export default function GeminiLive({ geminiApiKey, geminiVoice }: { geminiApiKey
               key={log.id} 
               style={{
                 marginBottom: '0.5rem',
-                color: log.sender === 'model' ? '#00ff41' : log.sender === 'user' ? '#888' : '#005000',
+                color: log.sender === 'model' ? 'var(--brand-primary)' : log.sender === 'user' ? 'var(--text-tertiary)' : 'var(--border-color)',
                 fontSize: '0.9rem',
                 fontStyle: log.sender === 'system' ? 'italic' : 'normal',
                 opacity: log.sender === 'system' ? 0.7 : 1,

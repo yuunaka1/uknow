@@ -259,12 +259,12 @@ Act like a natural, supportive English conversation partner. DO NOT just answer 
   };
 
   const statusColors = {
-    idle: '#aaa',
-    connecting: '#ffaa00',
-    listening: '#ffaa00',
+    idle: 'var(--text-tertiary)',
+    connecting: 'var(--warning)',
+    listening: 'var(--warning)',
     processing: 'var(--brand-primary)',
     speaking: 'var(--brand-primary)',
-    error: '#ff3333'
+    error: 'var(--error)'
   };
 
   const currentColor = statusColors[appState];
@@ -272,7 +272,7 @@ Act like a natural, supportive English conversation partner. DO NOT just answer 
   return (
     <div className="animate-fade-in glass-panel" style={{ padding: 'clamp(1rem, 2vw, 1.5rem)', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 140px)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
-        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#ffaa00', margin: 0, fontSize: '1.25rem' }}>
+        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--warning)', margin: 0, fontSize: '1.25rem' }}>
           <Coffee size={20} /> DIALOGUE
         </h2>
 
@@ -297,14 +297,14 @@ Act like a natural, supportive English conversation partner. DO NOT just answer 
           {appState === 'idle' || appState === 'error' ? (
             <button 
               onClick={startSession}
-              style={{ ...btnBaseStyles, color: '#ffaa00', backgroundColor: 'rgba(255, 170, 0, 0.1)' }}
+              style={{ ...btnBaseStyles, color: 'var(--warning)', backgroundColor: 'var(--warning-bg)' }}
             >
               <Mic size={16} /> START
             </button>
           ) : (
             <button 
               onClick={stopAndGenerateFeedback}
-              style={{ ...btnBaseStyles, color: '#ff3333', backgroundColor: 'rgba(255, 51, 51, 0.1)' }}
+              style={{ ...btnBaseStyles, color: 'var(--error)', backgroundColor: 'var(--error-bg)' }}
             >
               <LogOut size={16} /> END
             </button>
@@ -316,7 +316,7 @@ Act like a natural, supportive English conversation partner. DO NOT just answer 
             gap: '0.4rem', 
             fontWeight: 'bold', 
             color: currentColor,
-            backgroundColor: 'rgba(0,0,0,0.4)',
+            backgroundColor: 'var(--bg-secondary)',
             padding: '0.4rem 0.75rem',
             borderRadius: '4px',
             border: `1px solid ${currentColor}22`,
@@ -333,7 +333,7 @@ Act like a natural, supportive English conversation partner. DO NOT just answer 
       </div>
 
       {errorDetails && (
-         <div style={{ padding: '1rem', marginBottom: '1rem', color: '#ff3333', backgroundColor: 'rgba(255,0,0,0.1)', border: '1px solid #ff3333', borderRadius: '4px' }}>
+         <div style={{ padding: '1rem', marginBottom: '1rem', color: 'var(--error)', backgroundColor: 'var(--error-bg)', border: '1px solid var(--error)', borderRadius: '4px' }}>
             <AlertTriangle size={18} style={{ marginBottom: '0.5rem' }}/>
             <br />
             {errorDetails}
@@ -341,7 +341,7 @@ Act like a natural, supportive English conversation partner. DO NOT just answer 
       )}
 
       {isGeneratingFeedback && (
-        <div style={{ padding: '1.5rem', marginBottom: '1rem', backgroundColor: 'rgba(255, 170, 0, 0.1)', border: '1px solid #ffaa00', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#ffaa00' }}>
+        <div style={{ padding: '1.5rem', marginBottom: '1rem', backgroundColor: 'var(--warning-bg)', border: '1px solid var(--warning)', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--warning)' }}>
           <Loader className="animate-spin" size={20} />
           <span>Generating session feedback...</span>
         </div>
@@ -360,16 +360,16 @@ Act like a natural, supportive English conversation partner. DO NOT just answer 
 
       <div style={{
         flex: 1,
-        backgroundColor: '#1a1000',
-        border: '1px solid #503300',
+        backgroundColor: 'var(--bg-primary)',
+        border: '1px solid var(--border-color)',
         borderRadius: '4px',
         fontFamily: "'Fira Code', monospace",
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden'
       }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderBottom: '1px solid #503300', backgroundColor: '#1a1000', zIndex: 10 }}>
-          <h3 style={{ fontSize: '0.9rem', color: '#aa7700', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderBottom: '1px solid var(--border-color)', backgroundColor: 'var(--bg-primary)', zIndex: 10 }}>
+          <h3 style={{ fontSize: '0.9rem', color: 'var(--warning)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             DIALOGUE_STREAM_LOG
           </h3>
         </div>
@@ -383,7 +383,7 @@ Act like a natural, supportive English conversation partner. DO NOT just answer 
               key={log.id} 
               style={{
                 marginBottom: '0.5rem',
-                color: log.sender === 'model' ? '#ffaa00' : log.sender === 'user' ? '#888' : '#aa7700',
+                color: log.sender === 'model' ? 'var(--warning)' : log.sender === 'user' ? 'var(--text-tertiary)' : 'var(--warning)',
                 fontSize: '0.9rem',
                 fontStyle: log.sender === 'system' ? 'italic' : 'normal',
                 opacity: log.sender === 'system' ? 0.7 : 1,

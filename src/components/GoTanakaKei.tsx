@@ -101,8 +101,8 @@ export default function GoTanakaKei({ geminiApiKey, geminiModel, geminiVoice }: 
   const getStatusBadge = (status: TopicState['status']) => {
     switch(status) {
       case 'unstarted': return <span style={{ color: 'var(--text-tertiary)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}><Clock size={12}/> 未着手</span>;
-      case 'drafted': return <span style={{ color: '#ffaa00', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}><FileText size={12}/> メモあり</span>;
-      case 'scripted': return <span style={{ color: '#00ccff', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}><FileText size={12}/> スクリプト完</span>;
+      case 'drafted': return <span style={{ color: 'var(--warning)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}><FileText size={12}/> メモあり</span>;
+      case 'scripted': return <span style={{ color: 'var(--brand-primary)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}><FileText size={12}/> スクリプト完</span>;
       case 'practiced':
       case 'completed': return <span style={{ color: 'var(--success)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}><CheckCircle size={12}/> 実践済</span>;
       default: return null;
@@ -112,7 +112,7 @@ export default function GoTanakaKei({ geminiApiKey, geminiModel, geminiVoice }: 
   return (
     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0, fontSize: '1.25rem', color: '#00ccff' }}>
+        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0, fontSize: '1.25rem', color: 'var(--brand-primary)' }}>
           <Mic size={20} /> Personal Topics (GoTanakaKei)
         </h2>
         
@@ -141,7 +141,7 @@ export default function GoTanakaKei({ geminiApiKey, geminiModel, geminiVoice }: 
             onClick={() => setSelectedTopicId(topic.id)}
             style={{ 
               backgroundColor: 'var(--bg-secondary)', 
-              border: `1px solid ${topic.status === 'completed' ? 'var(--success)' : topic.status === 'scripted' ? '#00ccff' : 'var(--border-color)'}`,
+              border: `1px solid ${topic.status === 'completed' ? 'var(--success)' : topic.status === 'scripted' ? 'var(--brand-primary)' : 'var(--border-color)'}`,
               borderRadius: '8px',
               padding: '1rem',
               cursor: 'pointer',
@@ -155,7 +155,7 @@ export default function GoTanakaKei({ geminiApiKey, geminiModel, geminiVoice }: 
             {topic.isCustom && (
               <button 
                 onClick={(e) => handleDeleteCustom(e, topic.id)}
-                style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', background: 'none', border: 'none', color: '#ff3333', cursor: 'pointer', opacity: 0.5 }}
+                style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', background: 'none', border: 'none', color: 'var(--error)', cursor: 'pointer', opacity: 0.5 }}
                 title="Delete Custom Topic"
                 aria-label="Delete Custom Topic"
               >
