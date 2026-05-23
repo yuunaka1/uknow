@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { AudioStreamPlayer } from '../utils/audioUtils';
 
 interface SettingsPanelProps {
   googleClientId: string;
@@ -26,6 +27,7 @@ export default function SettingsPanel({
 
   const [isPlayingSample, setIsPlayingSample] = useState(false);
   const [sampleError, setSampleError] = useState("");
+  const playerRef = useRef<AudioStreamPlayer | null>(null);
 
   const playSample = async () => {
     if (!geminiApiKey) {
@@ -60,9 +62,19 @@ export default function SettingsPanel({
       );
 
       if (part && part.inlineData) {
-        const audioUrl = `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
-        const audio = new Audio(audioUrl);
-        await audio.play();
+        const mimeType = part.inlineData.mimeType || '';
+        if (mimeType.includes('x-linear16') || mimeType.includes('pcm')) {
+          if (!playerRef.current) {
+            playerRef.current = new AudioStreamPlayer();
+          }
+          const sampleRate = mimeType.includes('rate=24000') ? 24000 : 
+                             mimeType.includes('rate=16000') ? 16000 : 24000;
+          await playerRef.current.playPcmData(part.inlineData.data, sampleRate);
+        } else {
+          const audioUrl = `data:${mimeType};base64,${part.inlineData.data}`;
+          const audio = new Audio(audioUrl);
+          await audio.play();
+        }
       } else {
         throw new Error("音声データが返されませんでした。モデルがAUDIO出力をサポートしているか確認してください。");
       }
