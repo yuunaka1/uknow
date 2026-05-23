@@ -132,82 +132,82 @@ function App() {
               onClick={() => { setView('shadowing'); setIsMenuOpen(false); }}
               disabled={!isShadowingConfigured}
             >
-              <Headphones size={20} /> Shadowing
+              <Headphones size={20} /> シャドーイング
             </button>
             <button
               className={`btn menu-btn ${view === 'coaching' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => { setView('coaching'); setIsMenuOpen(false); }}
               disabled={!isShadowingConfigured}
             >
-              <MessageSquare size={20} /> Coaching
+              <MessageSquare size={20} /> レッスン音声評価
             </button>
             <button
               className={`btn menu-btn ${view === 'gemini_live' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => { setView('gemini_live'); setIsMenuOpen(false); }}
               disabled={!geminiApiKey}
             >
-              <Zap size={20} /> Monologue
+              <Zap size={20} /> 独り言スピーチ
             </button>
             <button
               className={`btn menu-btn ${view === 'composition' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => { setView('composition'); setIsMenuOpen(false); }}
               disabled={!geminiApiKey}
             >
-              <GraduationCap size={20} /> Reflex
+              <GraduationCap size={20} /> 瞬間英作文
             </button>
             <button
               className={`btn menu-btn ${view === 'gotanakakei' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => { setView('gotanakakei'); setIsMenuOpen(false); }}
               disabled={!geminiApiKey}
             >
-              <Mic size={20} /> GoTanakaKei
+              <Mic size={20} /> 田中渓メソッド
             </button>
             <button
               className={`btn menu-btn ${view === 'freetalk' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => { setView('freetalk'); setIsMenuOpen(false); }}
               disabled={!geminiApiKey}
             >
-              <Coffee size={20} /> Dialogue
+              <Coffee size={20} /> AI英会話(フリートーク)
             </button>
             <button
               className={`btn menu-btn ${view === 'teacher' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => { setView('teacher'); setIsMenuOpen(false); }}
               disabled={!geminiApiKey}
             >
-              <GraduationCap size={20} /> Teacher
+              <GraduationCap size={20} /> 専属AIコーチ
             </button>
             <button
               className={`btn menu-btn ${view === 'tuning' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => { setView('tuning'); setIsMenuOpen(false); }}
               disabled={!geminiApiKey}
             >
-              <Volume2 size={20} /> Tuning
+              <Volume2 size={20} /> 発音矯正
             </button>
             <button
               className={`btn menu-btn ${view === 'photodesc' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => { setView('photodesc'); setIsMenuOpen(false); }}
               disabled={!geminiApiKey}
             >
-              <Camera size={20} /> Describe
+              <Camera size={20} /> 写真描写
             </button>
             <button
               className={`btn menu-btn ${view === 'dashboard' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => { setView('dashboard'); setIsMenuOpen(false); }}
               disabled={!isFlashcardConfigured}
             >
-              <BrainCircuit size={20} /> Flashcards
+              <BrainCircuit size={20} /> フラッシュカード
             </button>
             <button
               className={`btn menu-btn ${view === 'settings' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => { setView('settings'); setIsMenuOpen(false); }}
             >
-              <Settings size={20} /> Settings
+              <Settings size={20} /> 設定
             </button>
             <button
               className={`btn menu-btn ${view === 'help' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => { setView('help'); setIsMenuOpen(false); }}
             >
-              <HelpCircle size={20} /> Help
+              <HelpCircle size={20} /> ヘルプ
             </button>
           </nav>
         </div>
