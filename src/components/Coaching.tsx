@@ -82,7 +82,7 @@ export default function Coaching({ geminiApiKey, geminiModel }: { geminiApiKey?:
             SELECT AUDIO
             <input 
               type="file" 
-              accept="audio/*" 
+              accept="audio/*, audio/mp3, audio/mpeg, audio/mp4, audio/wav, audio/x-m4a, .mp3, .m4a, .wav"
               onChange={handleFileChange} 
               style={{ display: 'none' }} 
             />
