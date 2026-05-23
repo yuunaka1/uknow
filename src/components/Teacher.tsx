@@ -322,13 +322,13 @@ ${transcript}
   };
 
   const statusColors = {
-    setup: '#aaa',
-    connecting: '#ffaa00',
-    listening: '#00ff41',
+    setup: 'var(--text-tertiary)',
+    connecting: 'var(--warning)',
+    listening: 'var(--brand-primary)',
     processing: 'var(--brand-primary)',
     speaking: 'var(--brand-primary)',
-    evaluating: '#a855f7',
-    error: '#ff3333'
+    evaluating: 'var(--brand-primary)',
+    error: 'var(--error)'
   };
 
   const currentColor = statusColors[appState];
@@ -350,13 +350,13 @@ ${transcript}
               <Mic size={16} /> START LESSON
             </button>
           ) : appState === 'evaluating' ? (
-             <span style={{ fontSize: '0.875rem', color: '#a855f7', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+             <span style={{ fontSize: '0.875rem', color: 'var(--brand-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Loader size={16} className="animate-spin"/> Evaluating...
              </span>
           ) : (
             <button
               onClick={() => handleEndSession(true)}
-              style={{ ...btnBaseStyles, color: '#ff3333', backgroundColor: 'rgba(255, 51, 51, 0.1)' }}
+              style={{ ...btnBaseStyles, color: 'var(--error)', backgroundColor: 'var(--error-bg)' }}
             >
               <LogOut size={16} /> END LESSON
             </button>
@@ -365,7 +365,7 @@ ${transcript}
           {appState !== 'setup' && appState !== 'evaluating' && (
               <div style={{
                 display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 'bold',
-                color: currentColor, backgroundColor: 'rgba(0,0,0,0.4)',
+                color: currentColor, backgroundColor: 'var(--bg-secondary)',
                 padding: '0.4rem 0.75rem', borderRadius: '4px',
                 border: `1px solid ${currentColor}22`, fontSize: '0.85rem'
               }}>
@@ -380,7 +380,7 @@ ${transcript}
       </div>
 
       {errorDetails && (
-         <div style={{ padding: '1rem', marginBottom: '1rem', color: '#ff3333', backgroundColor: 'rgba(255,0,0,0.1)', border: '1px solid #ff3333', borderRadius: '4px' }}>
+         <div style={{ padding: '1rem', marginBottom: '1rem', color: 'var(--error)', backgroundColor: 'var(--error-bg)', border: '1px solid var(--error)', borderRadius: '4px' }}>
             <AlertTriangle size={18} style={{ marginBottom: '0.5rem' }}/> {errorDetails}
          </div>
       )}
@@ -422,7 +422,7 @@ ${transcript}
       ) : (
         <div style={{
             flex: 1,
-            backgroundColor: '#111',
+            backgroundColor: 'var(--bg-primary)',
             border: '1px solid var(--border-color)',
             borderRadius: '8px',
             display: 'flex',
@@ -444,7 +444,7 @@ ${transcript}
                         style={{
                             alignSelf: isUser ? 'flex-end' : 'flex-start',
                             backgroundColor: isUser ? 'var(--brand-primary)' : 'var(--bg-tertiary)',
-                            color: isUser ? '#fff' : 'var(--text-primary)',
+                            color: isUser ? 'var(--text-primary)' : 'var(--text-primary)',
                             padding: '0.75rem 1rem',
                             borderRadius: '12px',
                             borderBottomRightRadius: isUser ? '0' : '12px',

@@ -168,7 +168,7 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
   };
 
   // UI Setup
-  const mainColor = phase === 'speaking' ? '#ff3333' : phase === 'prep' ? '#ffaa00' : '#00ccff';
+  const mainColor = phase === 'speaking' ? 'var(--error)' : phase === 'prep' ? 'var(--warning)' : 'var(--brand-primary)';
   const progressPercent = phase === 'prep' || phase === 'speaking' ? (timeLeft / 45) * 100 : 0;
 
   return (
@@ -176,7 +176,7 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
       
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#00ccff', margin: 0, fontSize: '1.25rem' }}>
+        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)', margin: 0, fontSize: '1.25rem' }}>
           <Camera size={20} /> Photo Description
         </h2>
         
@@ -194,7 +194,7 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
       </div>
 
       {errorMsg && (
-        <div style={{ padding: '1rem', backgroundColor: 'rgba(255,0,0,0.1)', border: '1px solid #ff3333', borderRadius: '4px', color: '#ff3333', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ padding: '1rem', backgroundColor: 'var(--error-bg)', border: '1px solid var(--error)', borderRadius: '4px', color: 'var(--error)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <AlertTriangle size={18} /> {errorMsg}
         </div>
       )}
@@ -207,8 +207,8 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
           <div style={{ 
             width: '100%', 
             aspectRatio: '4/3', 
-            backgroundColor: '#0a0a0a',
-            border: `2px solid ${phase === 'idle' || phase === 'result' ? '#002244' : mainColor}`,
+            backgroundColor: 'var(--bg-primary)',
+            border: `2px solid ${phase === 'idle' || phase === 'result' ? 'var(--border-color)' : mainColor}`,
             borderRadius: '8px',
             overflow: 'hidden',
             position: 'relative',
@@ -233,7 +233,7 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
           {(phase === 'prep' || phase === 'speaking') && (
             <div style={{
               display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
-              backgroundColor: '#050a14', border: `1px solid ${mainColor}`, borderRadius: '8px', padding: '1rem',
+              backgroundColor: 'var(--bg-secondary)', border: `1px solid ${mainColor}`, borderRadius: '8px', padding: '1rem',
               color: 'white',
               boxShadow: `0 0 15px ${mainColor}22`
             }}>
@@ -263,13 +263,13 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
             )}
             
             {phase === 'prep' && (
-              <button className="btn btn-primary" onClick={() => { if (timerRef.current) clearInterval(timerRef.current); startSpeaking(); }} style={{ padding: '0.75rem 2rem', backgroundColor: '#00ccff', color: 'black' }}>
+              <button className="btn btn-primary" onClick={() => { if (timerRef.current) clearInterval(timerRef.current); startSpeaking(); }} style={{ padding: '0.75rem 2rem', backgroundColor: 'var(--brand-primary)', color: 'black' }}>
                 <Mic size={18} /> SKIP PREP (SPEAK NOW)
               </button>
             )}
             
             {phase === 'speaking' && (
-              <button className="btn btn-secondary" onClick={() => { if (timerRef.current) clearInterval(timerRef.current); stopSpeaking(); }} style={{ padding: '0.75rem 2rem', color: '#ff3333', borderColor: '#ff3333' }}>
+              <button className="btn btn-secondary" onClick={() => { if (timerRef.current) clearInterval(timerRef.current); stopSpeaking(); }} style={{ padding: '0.75rem 2rem', color: 'var(--error)', borderColor: 'var(--error)' }}>
                 <Square size={18} /> FINISH EARLY
               </button>
             )}
@@ -284,7 +284,7 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
           <div style={{ color: 'var(--text-tertiary)', fontSize: '0.85rem', lineHeight: 1.5 }}>
             <p><strong>Rules:</strong> You will have 45 seconds to prepare your response, and then 45 seconds to speak about the picture.</p>
             {phase === 'evaluating' && (
-               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)', padding: '1rem', backgroundColor: 'rgba(0,204,255,0.1)', borderRadius: '4px' }}>
+               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)', padding: '1rem', backgroundColor: 'var(--brand-light)', borderRadius: '4px' }}>
                  <Loader size={18} className="animate-spin" /> Analyzing your response with Gemini Multimodal Audio API...
                </div>
             )}
@@ -295,8 +295,8 @@ export default function PhotoDescription({ geminiApiKey, geminiModel }: { gemini
         <div style={{ flex: '1 1 500px', display: 'flex', flexDirection: 'column' }}>
           <div style={{ 
             flex: 1, 
-            backgroundColor: '#050a14', 
-            border: '1px solid #002244', 
+            backgroundColor: 'var(--bg-secondary)',
+            border: '1px solid var(--border-color)',
             borderRadius: '8px', 
             padding: '1.5rem',
             overflowY: 'auto',

@@ -361,12 +361,12 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
   };
 
   const statusColors = {
-    idle: '#aaa',
-    connecting: '#ffaa00',
-    listening: '#00ccff',
+    idle: 'var(--text-tertiary)',
+    connecting: 'var(--warning)',
+    listening: 'var(--brand-primary)',
     processing: 'var(--brand-primary)',
     speaking: 'var(--brand-primary)',
-    error: '#ff3333'
+    error: 'var(--error)'
   };
 
   const currentColor = statusColors[appState];
@@ -374,7 +374,7 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
   return (
     <div className="animate-fade-in glass-panel" style={{ padding: 'clamp(1rem, 2vw, 1.5rem)', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 140px)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
-        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#00ccff', margin: 0, fontSize: '1.25rem' }}>
+        <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)', margin: 0, fontSize: '1.25rem' }}>
           <GraduationCap size={20} /> REFLEX
         </h2>
 
@@ -386,16 +386,16 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
             style={{ 
               padding: '0.4rem 0.5rem', 
               borderRadius: '4px', 
-              backgroundColor: 'rgba(0, 204, 255, 0.1)', 
-              color: '#00ccff', 
-              border: '1px solid #00ccff', 
+              backgroundColor: 'var(--brand-light)',
+              color: 'var(--brand-primary)',
+              border: '1px solid var(--brand-primary)',
               fontSize: '0.85rem',
               outline: 'none',
               cursor: (appState === 'idle' || appState === 'error') ? 'pointer' : 'not-allowed'
             }}
           >
             {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(level => (
-              <option key={level} value={level} style={{ backgroundColor: '#0a0a0a' }}>CEFR: {level}</option>
+              <option key={level} value={level} style={{ backgroundColor: 'var(--bg-primary)' }}>CEFR: {level}</option>
             ))}
           </select>
           
@@ -406,9 +406,9 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
             style={{ 
               padding: '0.4rem 0.5rem', 
               borderRadius: '4px', 
-              backgroundColor: 'rgba(0, 204, 255, 0.1)', 
-              color: '#00ccff', 
-              border: '1px solid #00ccff', 
+              backgroundColor: 'var(--brand-light)',
+              color: 'var(--brand-primary)',
+              border: '1px solid var(--brand-primary)',
               fontSize: '0.85rem',
               outline: 'none',
               cursor: (appState === 'idle' || appState === 'error') ? 'pointer' : 'not-allowed',
@@ -417,21 +417,21 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
             }}
           >
             {GRAMMAR_THEMES.map(theme => (
-              <option key={theme.value} value={theme.value} style={{ backgroundColor: '#0a0a0a' }}>{theme.label}</option>
+              <option key={theme.value} value={theme.value} style={{ backgroundColor: 'var(--bg-primary)' }}>{theme.label}</option>
             ))}
           </select>
 
           {appState === 'idle' || appState === 'error' ? (
             <button 
               onClick={startSession}
-              style={{ ...btnBaseStyles, color: '#00ccff', backgroundColor: 'rgba(0, 204, 255, 0.1)' }}
+              style={{ ...btnBaseStyles, color: 'var(--brand-primary)', backgroundColor: 'var(--brand-light)' }}
             >
               <Mic size={16} /> START
             </button>
           ) : (
             <button 
               onClick={performStop}
-              style={{ ...btnBaseStyles, color: '#ff3333', backgroundColor: 'rgba(255, 51, 51, 0.1)' }}
+              style={{ ...btnBaseStyles, color: 'var(--error)', backgroundColor: 'var(--error-bg)' }}
             >
               <LogOut size={16} /> END
             </button>
@@ -443,7 +443,7 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
             gap: '0.4rem', 
             fontWeight: 'bold', 
             color: currentColor,
-            backgroundColor: 'rgba(0,0,0,0.4)',
+            backgroundColor: 'var(--bg-secondary)',
             padding: '0.4rem 0.75rem',
             borderRadius: '4px',
             border: `1px solid ${currentColor}22`,
@@ -460,7 +460,7 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
       </div>
 
       {errorDetails && (
-         <div style={{ padding: '1rem', marginBottom: '1rem', color: '#ff3333', backgroundColor: 'rgba(255,0,0,0.1)', border: '1px solid #ff3333', borderRadius: '4px' }}>
+         <div style={{ padding: '1rem', marginBottom: '1rem', color: 'var(--error)', backgroundColor: 'var(--error-bg)', border: '1px solid var(--error)', borderRadius: '4px' }}>
             <AlertTriangle size={18} style={{ marginBottom: '0.5rem' }}/>
             <br />
             {errorDetails}
@@ -468,7 +468,7 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
       )}
 
       {isGeneratingFeedback && (
-        <div style={{ padding: '1rem', marginBottom: '1rem', backgroundColor: 'rgba(0,204,255,0.05)', border: '1px solid #00ccff', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#00ccff' }}>
+        <div style={{ padding: '1rem', marginBottom: '1rem', backgroundColor: 'var(--brand-light)', border: '1px solid var(--brand-primary)', borderRadius: '4px', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--brand-primary)' }}>
           <Loader size={16} className="animate-spin" />
           GENERATING SESSION FEEDBACK...
         </div>
@@ -493,16 +493,16 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
 
       <div style={{
         flex: 1,
-        backgroundColor: '#050a14',
-        border: '1px solid #002244',
+        backgroundColor: 'var(--bg-secondary)',
+        border: '1px solid var(--border-color)',
         borderRadius: '4px',
         fontFamily: "'Fira Code', monospace",
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden'
       }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderBottom: '1px solid #002244', backgroundColor: '#050a14', zIndex: 10 }}>
-          <h3 style={{ fontSize: '0.9rem', color: '#0055aa', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderBottom: '1px solid var(--border-color)', backgroundColor: 'var(--bg-secondary)', zIndex: 10 }}>
+          <h3 style={{ fontSize: '0.9rem', color: 'var(--brand-primary)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             TRAINING_STREAM_LOG
           </h3>
           {logs.length > 0 && (
@@ -524,7 +524,7 @@ Do not break this loop. Keep feedback practical and short. Speak naturally.`;
               key={log.id} 
               style={{
                 marginBottom: '0.5rem',
-                color: log.sender === 'model' ? '#00ccff' : log.sender === 'user' ? '#888' : '#0055aa',
+                color: log.sender === 'model' ? 'var(--brand-primary)' : log.sender === 'user' ? 'var(--text-tertiary)' : 'var(--brand-primary)',
                 fontSize: '0.9rem',
                 fontStyle: log.sender === 'system' ? 'italic' : 'normal',
                 opacity: log.sender === 'system' ? 0.7 : 1,
