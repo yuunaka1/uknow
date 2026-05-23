@@ -93,37 +93,37 @@ function App() {
 
   return (
     <div className="container animate-fade-in">
-      <header style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', marginBottom: 'clamp(1rem, 4vw, 2rem)' }}>
-        <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', margin: 0, zIndex: 2000 }}>
-          <BrainCircuit color="var(--brand-primary)" />
-          <span className="text-gradient">// yuKnow</span>
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', fontWeight: 'normal', fontFamily: 'monospace', marginLeft: '0.5rem' }}>
+      <header style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', marginBottom: 'clamp(1.5rem, 4vw, 3rem)', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>
+        <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1.25rem', margin: 0, zIndex: 2000, fontWeight: 600 }}>
+          <BrainCircuit color="var(--brand-primary)" size={22} />
+          <span className="text-gradient">yuKnow</span>
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', fontWeight: 'normal', fontFamily: 'monospace', marginLeft: '0.5rem', backgroundColor: 'var(--bg-secondary)', padding: '0.1rem 0.4rem', borderRadius: '4px' }}>
             v{packageJson.version}
           </span>
         </h1>
         <button
-          className="btn btn-secondary icon-btn"
+          className="btn btn-ghost icon-btn"
           onClick={() => setIsMenuOpen(true)}
           style={{ zIndex: 2000 }}
           aria-label="Open Menu"
         >
-          <Menu size={24} />
+          <Menu size={20} />
         </button>
       </header>
 
       {isMenuOpen && (
         <div className="menu-overlay animate-fade-in">
           <div className="menu-header">
-            <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', margin: 0 }}>
-              <BrainCircuit color="var(--brand-primary)" />
-              <span className="text-gradient">// yuKnow</span>
+            <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1.25rem', margin: 0, fontWeight: 600 }}>
+              <BrainCircuit color="var(--brand-primary)" size={22} />
+              <span className="text-gradient">yuKnow</span>
             </h1>
             <button
-              className="btn btn-secondary icon-btn"
+              className="btn btn-ghost icon-btn"
               onClick={() => setIsMenuOpen(false)}
               aria-label="Close Menu"
             >
-              <X size={24} />
+              <X size={20} />
             </button>
           </div>
           <nav className="menu-nav">
@@ -214,8 +214,8 @@ function App() {
       )}
       
       <main 
-        className={view === 'shadowing' ? '' : 'glass-panel'} 
-        style={view === 'shadowing' ? {} : { padding: 'clamp(1rem, 4vw, 2rem)' }}
+        className="glass-panel"
+        style={{ padding: 'clamp(1rem, 4vw, 2rem)', border: 'none', background: 'transparent' }}
       >
         {view === 'settings' && (
           <SettingsPanel 

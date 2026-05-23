@@ -348,21 +348,6 @@ export default function ShadowingPlayer({ geminiApiKey, geminiModel }: { geminiA
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-
-
-  const btnStyle: React.CSSProperties = {
-    backgroundColor: 'transparent',
-    color: 'var(--brand-primary)',
-    border: '1px solid var(--brand-primary)',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-    fontSize: '0.9rem',
-    textTransform: 'uppercase',
-  };
-
   return (
     <div className="glass-panel" style={{ padding: 'clamp(1rem, 4vw, 2rem)' }}>
       <div style={{ paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)', marginBottom: '1.5rem' }}>
@@ -375,7 +360,7 @@ export default function ShadowingPlayer({ geminiApiKey, geminiModel }: { geminiA
       </div>
 
       <div style={{ marginBottom: '1.5rem' }}>
-        <label style={{ ...btnStyle, display: 'inline-flex' }}>
+        <label className="btn btn-secondary" style={{ display: 'inline-flex' }}>
           <Upload size={18} /> 音声ファイルを読み込む
           <input 
             type="file" 
@@ -413,12 +398,12 @@ export default function ShadowingPlayer({ geminiApiKey, geminiModel }: { geminiA
           </div>
 
           {/* Controls */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
-            <button onClick={togglePlay} style={{ ...btnStyle, backgroundColor: 'var(--brand-light)' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center', marginBottom: '1.25rem' }}>
+            <button className="btn btn-primary" onClick={togglePlay}>
               {isPlaying ? <Pause size={18} /> : <Play size={18} />}
               {isPlaying ? '一時停止' : '再生'}
             </button>
-            <button onClick={stopAudio} style={btnStyle}>
+            <button className="btn btn-secondary" onClick={stopAudio}>
               <Square size={18} /> 停止
             </button>
             
@@ -427,18 +412,19 @@ export default function ShadowingPlayer({ geminiApiKey, geminiModel }: { geminiA
             <select 
               value={targetLoops} 
               onChange={handleLoopTargetChange}
-              style={{ ...btnStyle, backgroundColor: 'var(--bg-primary)', appearance: 'none', textAlign: 'center', opacity: targetLoops === 0 ? 0.5 : 1 }}
+              className="btn btn-secondary"
+              style={{ appearance: 'none', textAlign: 'center', opacity: targetLoops === 0 ? 0.6 : 1 }}
             >
-              <option value={0} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>リピート: オフ</option>
-              <option value={-1} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>リピート: 無限</option>
-              <option value={5} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>リピート: 5</option>
-              <option value={10} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>リピート: 10</option>
-              <option value={20} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>リピート: 20</option>
-              <option value={30} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>リピート: 30</option>
+              <option value={0}>リピート: オフ</option>
+              <option value={-1}>リピート: 無限</option>
+              <option value={5}>リピート: 5</option>
+              <option value={10}>リピート: 10</option>
+              <option value={20}>リピート: 20</option>
+              <option value={30}>リピート: 30</option>
             </select>
 
             {targetLoops > 0 && (
-              <span style={{ fontSize: '1rem', color: 'var(--brand-primary)', fontWeight: 'bold' }}>
+              <span style={{ fontSize: '1rem', color: 'var(--brand-primary)', fontWeight: '500' }}>
                 [{remainingLoops} / {targetLoops}]
               </span>
             )}
@@ -446,33 +432,34 @@ export default function ShadowingPlayer({ geminiApiKey, geminiModel }: { geminiA
             <select 
               value={playbackRate} 
               onChange={changeSpeed}
-              style={{ ...btnStyle, backgroundColor: 'var(--bg-primary)', appearance: 'none', textAlign: 'center' }}
+              className="btn btn-secondary"
+              style={{ appearance: 'none', textAlign: 'center' }}
             >
-              <option value={0.75} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>0.75x 速度</option>
-              <option value={0.80} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>0.80x 速度</option>
-              <option value={0.85} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>0.85x 速度</option>
-              <option value={0.90} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>0.90x 速度</option>
-              <option value={0.95} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>0.95x 速度</option>
-              <option value={1.00} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>1.00x 速度</option>
-              <option value={1.05} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>1.05x 速度</option>
-              <option value={1.10} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>1.10x 速度</option>
-              <option value={1.15} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>1.15x 速度</option>
-              <option value={1.20} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>1.20x 速度</option>
-              <option value={1.25} style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--brand-primary)' }}>1.25x 速度</option>
+              <option value={0.75}>0.75x 速度</option>
+              <option value={0.80}>0.80x 速度</option>
+              <option value={0.85}>0.85x 速度</option>
+              <option value={0.90}>0.90x 速度</option>
+              <option value={0.95}>0.95x 速度</option>
+              <option value={1.00}>1.00x 速度</option>
+              <option value={1.05}>1.05x 速度</option>
+              <option value={1.10}>1.10x 速度</option>
+              <option value={1.15}>1.15x 速度</option>
+              <option value={1.20}>1.20x 速度</option>
+              <option value={1.25}>1.25x 速度</option>
             </select>
           </div>
 
           {/* A-B Repeat Controls */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(0.5rem, 2vw, 1rem)', flexWrap: 'wrap', padding: 'clamp(0.5rem, 2vw, 1rem)', backgroundColor: 'var(--bg-primary)', border: '1px dashed var(--border-color)', borderRadius: '4px' }}>
-            <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>A-B リピート:</span>
-            <button onClick={markA} style={btnStyle}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', padding: '1rem', backgroundColor: 'var(--bg-primary)', border: '1px solid var(--border-color)', borderRadius: '8px' }}>
+            <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginRight: '0.5rem' }}>A-B リピート:</span>
+            <button className="btn btn-secondary" onClick={markA}>
               [A] {aPoint !== null ? formatTime(aPoint) : 'マーク'}
             </button>
-            <button onClick={markB} disabled={aPoint === null} style={{ ...btnStyle, opacity: aPoint === null ? 0.3 : 1 }}>
+            <button className="btn btn-secondary" onClick={markB} disabled={aPoint === null}>
               [B] {bPoint !== null ? formatTime(bPoint) : 'マーク'}
             </button>
             {isAbRepeat && (
-              <button onClick={clearAB} style={btnStyle}>
+              <button className="btn btn-ghost" onClick={clearAB}>
                 <XCircle size={18} /> クリア
               </button>
             )}
@@ -483,10 +470,10 @@ export default function ShadowingPlayer({ geminiApiKey, geminiModel }: { geminiA
       {/* Recording Section */}
       <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px dashed var(--border-color)' }}>
         <h3 style={{ fontSize: '1.1rem', marginTop: 0, marginBottom: '1rem' }}>// 音声シャドーイング</h3>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
           <button 
             onClick={toggleAutoRecord} 
-            style={{ ...btnStyle, backgroundColor: autoRecord ? 'var(--brand-light)' : 'transparent' }}
+            className={`btn ${autoRecord ? 'btn-primary' : 'btn-secondary'}`}
           >
             {autoRecord ? <Mic size={18} /> : <MicOff size={18} />}
             {autoRecord ? '自動録音: オン' : '自動録音: オフ'}
@@ -494,25 +481,28 @@ export default function ShadowingPlayer({ geminiApiKey, geminiModel }: { geminiA
           
           <button 
             onClick={() => setKeepAwake(!keepAwake)} 
-            style={{ ...btnStyle, backgroundColor: keepAwake ? 'var(--brand-light)' : 'transparent' }}
+            className={`btn ${keepAwake ? 'btn-primary' : 'btn-secondary'}`}
           >
             {keepAwake ? <MonitorSmartphone size={18} /> : <MonitorOff size={18} />}
             {keepAwake ? 'スリープ防止: オン' : 'スリープ防止: オフ'}
           </button>
           
-          {isRecording && <span style={{ color: 'var(--error)', animation: 'pulse 1.5s infinite' }}>● 録音中</span>}
+          {isRecording && <span style={{ color: 'var(--error)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 500 }} className="animate-pulse">
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--error)' }} />
+            録音中...
+          </span>}
         </div>
 
         {recordedUrl && !isRecording && (
-          <div style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>録音データ:</span>
-            <audio src={recordedUrl} controls style={{ height: '32px' }} />
+          <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', padding: '1rem', backgroundColor: 'var(--bg-secondary)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+            <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>録音データ:</span>
+            <audio src={recordedUrl} controls style={{ height: '36px' }} />
             
             {geminiApiKey && (
               <>
                 <button 
                   onClick={handleTranscribe} 
-                  style={{ ...btnStyle, opacity: isTranscribing ? 0.5 : 1 }} 
+                  className="btn btn-secondary"
                   disabled={isTranscribing || isEvaluating}
                 >
                   <FileText size={18} />
@@ -520,7 +510,8 @@ export default function ShadowingPlayer({ geminiApiKey, geminiModel }: { geminiA
                 </button>
                 <button 
                   onClick={handleEvaluate} 
-                  style={{ ...btnStyle, opacity: isEvaluating ? 0.5 : 1, borderColor: 'var(--warning)', color: 'var(--warning)' }}
+                  className="btn btn-secondary"
+                  style={{ borderColor: 'var(--warning)', color: 'var(--warning)' }}
                   disabled={isEvaluating || isTranscribing}
                 >
                   <Bot size={18} />
